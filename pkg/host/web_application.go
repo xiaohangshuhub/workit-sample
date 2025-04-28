@@ -6,31 +6,65 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	stdstrings "strings"
 	"syscall"
 	"time"
 
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 	"github.com/lxhanghub/newb/pkg/tools/str"
+	swaggerFiles "github.com/swaggo/files"
+	"go.uber.org/fx"
 	"go.uber.org/zap"
 )
 
 type WebApplication struct {
 	*Application
-	handler http.Handler
-	server  *http.Server
-	port    string
+	handler            http.Handler
+	server             *http.Server
+	webHostOptions     WebHostOptions
+	routeRegistrations []interface{}
+	middlewares        []Middleware
 }
 
 type WebApplicationOptions struct {
-	Host    *Application
-	Handler http.Handler
-	Port    string
+	Host           *Application
+	WebHostOptions WebHostOptions
 }
 
 func newWebApplication(optinos WebApplicationOptions) *WebApplication {
+
+	if optinos.WebHostOptions == (WebHostOptions{}) {
+		panic("web host options is empty")
+	}
+
+	if str.IsEmptyOrWhiteSpace(optinos.WebHostOptions.Gin.Mode) {
+		optinos.WebHostOptions.Gin.Mode = gin.ReleaseMode
+	}
+
+	switch stdstrings.ToLower(optinos.WebHostOptions.Gin.Mode) {
+	case "debug":
+		gin.SetMode(gin.DebugMode)
+	case "test":
+		gin.SetMode(gin.TestMode)
+	default:
+		gin.SetMode(gin.ReleaseMode)
+	}
+
+	gin := gin.New()
+	// 🔥 挂载自己的 zap logger + recovery
+	gin.Use(NewGinZapLogger(optinos.Host.logger))
+
+	gin.Use(RecoveryWithZap(optinos.Host.logger))
+
+	if str.IsEmptyOrWhiteSpace(optinos.WebHostOptions.Server.Port) {
+		optinos.WebHostOptions.Server.Port = port
+	}
 	return &WebApplication{
-		Application: optinos.Host,
-		handler:     optinos.Handler,
-		port:        optinos.Port,
+		Application:    optinos.Host,
+		handler:        gin,
+		middlewares:    make([]Middleware, 0),
+		webHostOptions: optinos.WebHostOptions,
 	}
 }
 
@@ -56,12 +90,8 @@ func (app *WebApplication) Run(ctx ...context.Context) error {
 		appCtx = ctx[0]
 	}
 
-	if str.IsEmptyOrWhiteSpace(app.port) {
-		app.port = "8080" // 默认端口
-	}
-
 	app.server = &http.Server{
-		Addr:         ":" + app.port,
+		Addr:         ":" + app.webHostOptions.Server.Port,
 		Handler:      app.handler,
 		ReadTimeout:  15 * time.Second,
 		WriteTimeout: 15 * time.Second,
@@ -70,12 +100,35 @@ func (app *WebApplication) Run(ctx ...context.Context) error {
 
 	// 启动 HTTP 服务器
 	go func() {
-		app.Logger().Info("HTTP server starting...", zap.String("port", app.port))
+		app.Logger().Info("HTTP server starting...", zap.String("port", app.webHostOptions.Server.Port))
 
 		if err := app.server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			app.Logger().Error("HTTP server ListenAndServe error", zap.Error(err))
 		}
 	}()
+
+	for _, mw := range app.middlewares {
+		// 创建一个局部变量，避免闭包捕获问题
+		currentMiddleware := mw
+		app.engine().Use(func(c *gin.Context) {
+			if !currentMiddleware.ShouldSkip(c.Request.URL.Path) {
+				handler := currentMiddleware.Handle()
+				handler(c)
+			} else {
+				c.Next()
+			}
+		})
+	}
+
+	for _, r := range app.routeRegistrations {
+		app.appoptions = append(app.appoptions, fx.Invoke(r))
+	}
+
+	app.appoptions = append(app.appoptions,
+		fx.Supply(app.handler.(*gin.Engine)),
+	)
+
+	app.app = fx.New(app.appoptions...)
 
 	// 启动应用程序
 	if err := app.Start(appCtx); err != nil {
@@ -94,4 +147,45 @@ func (app *WebApplication) Run(ctx ...context.Context) error {
 	}
 
 	return app.Stop(shutdownCtx)
+}
+
+func (a *WebApplication) MapRoutes(registerFunc interface{}) *WebApplication {
+	a.routeRegistrations = append(a.routeRegistrations, registerFunc)
+	return a
+}
+
+// UseSwagger 配置Swagger
+func (a *WebApplication) UseSwagger() *WebApplication {
+	a.engine().GET("/swagger/*any", gin.WrapH(http.HandlerFunc(swaggerFiles.Handler.ServeHTTP)))
+	return a
+}
+
+// UseCORS 配置跨域
+func (a *WebApplication) UseCORS() *WebApplication {
+	a.engine().Use(cors.Default())
+	return a
+}
+
+// UseStaticFiles 配置静态文件
+func (a *WebApplication) UseStaticFiles(urlPath, root string) *WebApplication {
+	a.engine().Static(urlPath, root)
+	return a
+}
+
+// UseHealthCheck 配置健康检查
+func (a *WebApplication) UseHealthCheck() *WebApplication {
+	a.engine().GET("/health", func(c *gin.Context) {
+		c.JSON(200, gin.H{"status": "ok"})
+	})
+	return a
+}
+
+func (a *WebApplication) engine() *gin.Engine {
+	return a.handler.(*gin.Engine)
+}
+
+// 注册中间件
+func (b *WebApplication) UseMiddleware(mws ...Middleware) *WebApplication {
+	b.middlewares = append(b.middlewares, mws...)
+	return b
 }

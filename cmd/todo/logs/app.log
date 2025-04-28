@@ -1,0 +1,114 @@
+2025-04-28 19:43:47.577	[31mERROR[0m	todo/main.go:67	Error running application	{"error": "start host failed: missing dependencies for function \"main\".main.func2 (/Users/xiancheng/github/lovehang/newb-sample/newb-sample/cmd/todo/main.go:39): missing types: *gin.Engine; *todoapp.CreateTodoCommandHandler"}
+2025-04-28 19:43:47.577	[34mINFO[0m	host/web_application.go:73	HTTP server starting...	{"port": "8081"}
+2025-04-28 19:45:25.132	[34mINFO[0m	host/web_application.go:73	HTTP server starting...	{"port": "8081"}
+2025-04-28 19:45:25.132	[31mERROR[0m	todo/main.go:70	Error running application	{"error": "start host failed: missing dependencies for function \"main\".main.func2 (/Users/xiancheng/github/lovehang/newb-sample/newb-sample/cmd/todo/main.go:42): missing type: *gin.Engine"}
+2025-04-28 20:39:35.015	[34mINFO[0m	host/web_application.go:75	HTTP server starting...	{"port": "8081"}
+2025-04-28 20:39:35.015	[31mERROR[0m	todo/main.go:70	Error running application	{"error": "start host failed: missing dependencies for function \"main\".main.func2 (/Users/xiancheng/github/lovehang/newb-sample/newb-sample/cmd/todo/main.go:42): missing type: *gin.Engine"}
+2025-04-28 20:39:48.637	[34mINFO[0m	host/web_application.go:75	HTTP server starting...	{"port": "8081"}
+2025-04-28 20:39:48.638	[31mERROR[0m	todo/main.go:70	Error running application	{"error": "start host failed: missing dependencies for function \"main\".main.func2 (/Users/xiancheng/github/lovehang/newb-sample/newb-sample/cmd/todo/main.go:42): missing type: *gin.Engine"}
+2025-04-28 20:40:24.749	[34mINFO[0m	host/web_application.go:75	HTTP server starting...	{"port": "8081"}
+2025-04-28 20:40:24.750	[31mERROR[0m	todo/main.go:70	Error running application	{"error": "start host failed: missing dependencies for function \"main\".main.func2 (/Users/xiancheng/github/lovehang/newb-sample/newb-sample/cmd/todo/main.go:50): missing type: *gin.Engine"}
+2025-04-28 20:47:25.576	[34mINFO[0m	host/web_application.go:76	HTTP server starting...	{"port": "8081"}
+2025-04-28 20:47:25.579	[31mERROR[0m	database/gorm_logger.go:63	failed to initialize database, got error failed to connect to `host=/private/tmp user=xiancheng database=`: dial error (dial unix /private/tmp/.s.PGSQL.5432: connect: no such file or directory)
+2025-04-28 20:47:25.579	[31mERROR[0m	database/postgresql.go:32	Failed to open GORM postgres	{"error": "failed to connect to `host=/private/tmp user=xiancheng database=`: dial error (dial unix /private/tmp/.s.PGSQL.5432: connect: no such file or directory)"}
+2025-04-28 20:47:25.579	[31mERROR[0m	todo/main.go:70	Error running application	{"error": "start host failed: could not build arguments for function \"main\".main.func2 (/Users/xiancheng/github/lovehang/newb-sample/newb-sample/cmd/todo/main.go:50): failed to build *todoapp.CreateTodoCommandHandler: could not build arguments for function \"newb-sample/internal/todo/application/todo-app\".NewCreateTodoCommandHandler (/Users/xiancheng/github/lovehang/newb-sample/newb-sample/internal/todo/application/todo-app/create.go:25): failed to build *gorm.DB: received non-nil error from function \"newb-sample/pkg/database\".NewPostgresDB (/Users/xiancheng/github/lovehang/newb-sample/newb-sample/pkg/database/postgresql.go:17): failed to connect to `host=/private/tmp user=xiancheng database=`: dial error (dial unix /private/tmp/.s.PGSQL.5432: connect: no such file or directory)"}
+2025-04-28 21:05:24.671	[34mINFO[0m	host/web_application.go:76	HTTP server starting...	{"port": "8081"}
+2025-04-28 21:10:29.936	[34mINFO[0m	host/web_application.go:76	HTTP server starting...	{"port": "8081"}
+2025-04-28 21:12:53.914	[34mINFO[0m	host/web_application.go:76	HTTP server starting...	{"port": "8081"}
+2025-04-28 21:13:13.918	[31mERROR[0m	database/gorm_logger.go:63	failed to initialize database, got error failed to connect to `host=117.72.15.185 user=postgres database=testdb`: failed SASL auth (FATAL: password authentication failed for user "postgres" (SQLSTATE 28P01))
+2025-04-28 21:14:47.926	[34mINFO[0m	host/web_application.go:76	HTTP server starting...	{"port": "8081"}
+2025-04-28 21:15:02.341	[31mERROR[0m	todo/main.go:70	Error running application	{"error": "start host failed: could not build arguments for function \"main\".main.func2 (/Users/xiancheng/github/lovehang/newb-sample/newb-sample/cmd/todo/main.go:50): failed to build *todoapp.CreateTodoCommandHandler: could not build arguments for function \"newb-sample/internal/todo/application/todo-app\".NewCreateTodoCommandHandler (/Users/xiancheng/github/lovehang/newb-sample/newb-sample/internal/todo/application/todo-app/create.go:25): failed to build *todo.TodoManager: missing dependencies for function \"newb-sample/internal/todo/domain/todo\".NewTodoManager (/Users/xiancheng/github/lovehang/newb-sample/newb-sample/internal/todo/domain/todo/manager.go:16): missing types: gorm.DB (did you mean *gorm.DB?); zap.Logger (did you mean *zap.Logger?)"}
+2025-04-28 21:16:59.382	[34mINFO[0m	host/web_application.go:76	HTTP server starting...	{"port": "8081"}
+2025-04-28 21:18:28.833	[34mINFO[0m	host/web_application.go:76	HTTP server starting...	{"port": "8081"}
+2025-04-28 21:18:45.586	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 401, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000096291}
+2025-04-28 21:21:15.220	[34mINFO[0m	host/web_application.go:76	HTTP server starting...	{"port": "8081"}
+2025-04-28 21:21:23.520	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.00022975}
+2025-04-28 21:21:23.632	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 404, "method": "GET", "path": "/favicon.ico", "ip": "::1", "latency": 0.000009875}
+2025-04-28 21:21:34.457	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000070625}
+2025-04-28 21:21:38.066	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000091}
+2025-04-28 21:21:38.952	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000064}
+2025-04-28 21:21:39.577	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000170625}
+2025-04-28 21:21:40.090	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000029708}
+2025-04-28 21:21:40.576	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000051542}
+2025-04-28 21:21:41.088	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000053333}
+2025-04-28 21:21:41.512	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000022167}
+2025-04-28 21:21:41.949	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000022875}
+2025-04-28 21:21:42.586	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000110375}
+2025-04-28 21:21:43.104	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000039625}
+2025-04-28 21:21:43.608	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000075542}
+2025-04-28 21:21:44.104	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000039625}
+2025-04-28 21:21:44.696	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000101125}
+2025-04-28 21:21:45.265	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000065209}
+2025-04-28 21:21:45.776	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000050625}
+2025-04-28 21:21:46.704	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000033541}
+2025-04-28 21:21:47.312	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000037083}
+2025-04-28 21:21:48.248	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.00005}
+2025-04-28 21:21:49.136	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000038166}
+2025-04-28 21:21:49.803	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000088708}
+2025-04-28 21:21:50.271	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000031833}
+2025-04-28 21:21:50.726	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000066208}
+2025-04-28 21:21:51.182	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.00004475}
+2025-04-28 21:21:51.628	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000033083}
+2025-04-28 21:21:52.094	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000047083}
+2025-04-28 21:21:52.487	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.00003725}
+2025-04-28 21:21:52.871	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000022375}
+2025-04-28 21:21:53.077	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000023333}
+2025-04-28 21:21:53.276	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000034166}
+2025-04-28 21:21:53.468	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000021834}
+2025-04-28 21:21:53.645	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000306125}
+2025-04-28 21:21:53.796	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000026}
+2025-04-28 21:21:53.973	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000023625}
+2025-04-28 21:21:54.156	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000022583}
+2025-04-28 21:21:54.340	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000021584}
+2025-04-28 21:21:54.524	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000022459}
+2025-04-28 21:21:54.724	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000026792}
+2025-04-28 21:21:54.905	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000037542}
+2025-04-28 21:21:55.092	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.00002425}
+2025-04-28 21:21:55.348	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000038833}
+2025-04-28 21:21:55.540	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000036208}
+2025-04-28 21:21:55.716	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.00002175}
+2025-04-28 21:21:55.875	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000022959}
+2025-04-28 21:21:56.052	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000024375}
+2025-04-28 21:21:56.236	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.00002275}
+2025-04-28 21:21:56.396	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000036833}
+2025-04-28 21:21:56.573	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000023875}
+2025-04-28 21:22:07.975	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 5.905750167}
+2025-04-28 21:22:12.681	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.0001305}
+2025-04-28 21:22:14.225	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.00005575}
+2025-04-28 21:22:15.087	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000050208}
+2025-04-28 21:22:15.889	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000041}
+2025-04-28 21:22:16.488	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.00003}
+2025-04-28 21:22:16.699	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000018375}
+2025-04-28 21:22:16.867	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000022}
+2025-04-28 21:22:17.036	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000032791}
+2025-04-28 21:22:17.187	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000025375}
+2025-04-28 21:22:17.347	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000024875}
+2025-04-28 21:22:17.516	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.00002875}
+2025-04-28 21:22:17.676	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000035959}
+2025-04-28 21:22:17.860	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000025667}
+2025-04-28 21:22:18.020	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000025}
+2025-04-28 21:22:18.180	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000025542}
+2025-04-28 21:22:18.380	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.00002525}
+2025-04-28 21:22:18.713	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.0000255}
+2025-04-28 21:22:19.240	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000042334}
+2025-04-28 21:22:19.606	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000025375}
+2025-04-28 21:22:20.017	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000051959}
+2025-04-28 21:22:20.349	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000025}
+2025-04-28 21:22:20.735	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000046959}
+2025-04-28 21:22:21.111	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000030083}
+2025-04-28 21:22:21.454	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 400, "method": "GET", "path": "/todos", "ip": "::1", "latency": 0.000025291}
+2025-04-28 23:00:35.880	[34mINFO[0m	host/web_application.go:103	HTTP server starting...	{"port": "8081"}
+2025-04-28 23:00:49.839	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000214666}
+2025-04-28 23:00:52.653	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000040833}
+2025-04-28 23:01:08.030	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000025958}
+2025-04-28 23:01:08.140	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 404, "method": "GET", "path": "/favicon.ico", "ip": "::1", "latency": 0.000005666}
+2025-04-28 23:01:10.998	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000059458}
+2025-04-28 23:01:42.210	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000059125}
+2025-04-28 23:01:44.028	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000046833}
+2025-04-28 23:01:52.218	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.00003375}
+2025-04-28 23:01:54.494	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000043833}
+2025-04-28 23:01:54.613	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 404, "method": "GET", "path": "/favicon.ico", "ip": "::1", "latency": 0.000008375}
+2025-04-28 23:01:56.750	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000054292}
+2025-04-28 23:02:13.497	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000053958}
+2025-04-28 23:03:27.353	[34mINFO[0m	host/web_application.go:103	HTTP server starting...	{"port": "8081"}
+2025-04-28 23:03:54.244	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 401, "method": "GET", "path": "/ping", "ip": "::1", "latency": 9.600619833}

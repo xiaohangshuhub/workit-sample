@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 
+	"newb-sample/internal/todo/api"
+	"newb-sample/internal/todo/application"
 	"newb-sample/internal/todo/domain"
 	"newb-sample/pkg/cache"
 	"newb-sample/pkg/database"
@@ -31,20 +33,7 @@ func main() {
 	// 领域层注入
 	builder.ConfigureServices(domain.DependencyInjection()...)
 
-	//配置请求中间件,支持跳过
-	builder.UseMiddleware(middleware.NewAuthorizationMiddleware([]string{"/hello"}))
-
-	// 配置路由
-	builder.MapGet("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "hello world",
-		})
-	})
-	builder.MapGet("/hello", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "hello world",
-		})
-	})
+	builder.ConfigureServices(application.DependencyInjection()...)
 
 	//构建应用
 	app, err := builder.Build()
@@ -53,6 +42,20 @@ func main() {
 		fmt.Printf("Failed to build application: %v\n", err)
 		return
 	}
+	//配置请求中间件,支持跳过
+	app.UseMiddleware(middleware.NewAuthorizationMiddleware([]string{"/hello"}))
+
+	app.UseSwagger()
+
+	// 配置路由
+	app.MapRoutes(api.RegisterTodoRoutes)
+
+	app.MapRoutes(func(router *gin.Engine) {
+		router.GET("/ping", func(c *gin.Context) {
+
+			c.JSON(200, gin.H{"message": "hello world"})
+		})
+	})
 
 	// 运行应用
 	if err := app.Run(); err != nil {

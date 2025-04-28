@@ -9,11 +9,11 @@ import (
 )
 
 type TodoManager struct {
-	db  gorm.DB
-	log zap.Logger
+	db  *gorm.DB
+	log *zap.Logger
 }
 
-func NewTodoManager(db gorm.DB, log zap.Logger) (*TodoManager, error) {
+func NewTodoManager(db *gorm.DB, log *zap.Logger) (*TodoManager, error) {
 	return &TodoManager{
 		db:  db,
 		log: log,
