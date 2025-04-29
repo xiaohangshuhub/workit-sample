@@ -112,3 +112,57 @@
 2025-04-28 23:02:13.497	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/ping", "ip": "::1", "latency": 0.000053958}
 2025-04-28 23:03:27.353	[34mINFO[0m	host/web_application.go:103	HTTP server starting...	{"port": "8081"}
 2025-04-28 23:03:54.244	[33mWARN[0m	host/gin_logger.go:41	HTTP Request	{"status": 401, "method": "GET", "path": "/ping", "ip": "::1", "latency": 9.600619833}
+2025-04-29 09:36:19.797	[34mINFO[0m	host/web_application.go:104	HTTP server starting...	{"port": "8081"}
+2025-04-29 09:36:55.854	[34mINFO[0m	host/web_application.go:104	HTTP server starting...	{"port": "8081"}
+2025-04-29 09:37:35.406	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/index.html", "ip": "::1", "latency": 0.001086}
+2025-04-29 09:37:35.437	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/swagger-ui.css", "ip": "::1", "latency": 0}
+2025-04-29 09:37:35.440	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/swagger-ui-standalone-preset.js", "ip": "::1", "latency": 0.0020943}
+2025-04-29 09:37:35.442	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/swagger-ui-bundle.js", "ip": "::1", "latency": 0.0046081}
+2025-04-29 09:37:35.667	[31mERROR[0m	host/gin_logger.go:39	HTTP Request	{"status": 500, "method": "GET", "path": "/swagger/doc.json", "ip": "::1", "latency": 0}
+2025-04-29 09:37:35.684	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/favicon-32x32.png", "ip": "::1", "latency": 0}
+2025-04-29 09:37:40.915	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 304, "method": "GET", "path": "/swagger/swagger-ui.css", "ip": "::1", "latency": 0}
+2025-04-29 09:37:41.230	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/swagger-ui.css.map", "ip": "::1", "latency": 0.0017656}
+2025-04-29 09:37:41.284	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/swagger-ui-standalone-preset.js.map", "ip": "::1", "latency": 0.0010142}
+2025-04-29 09:37:41.287	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/swagger-ui-bundle.js.map", "ip": "::1", "latency": 0.004163}
+2025-04-29 09:37:43.160	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/index.html", "ip": "::1", "latency": 0}
+2025-04-29 09:37:43.185	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 304, "method": "GET", "path": "/swagger/swagger-ui-bundle.js", "ip": "::1", "latency": 0}
+2025-04-29 09:37:43.189	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 304, "method": "GET", "path": "/swagger/swagger-ui-standalone-preset.js", "ip": "::1", "latency": 0}
+2025-04-29 09:37:43.488	[31mERROR[0m	host/gin_logger.go:39	HTTP Request	{"status": 500, "method": "GET", "path": "/swagger/doc.json", "ip": "::1", "latency": 0}
+2025-04-29 09:37:43.505	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 304, "method": "GET", "path": "/swagger/favicon-32x32.png", "ip": "::1", "latency": 0}
+2025-04-29 09:37:57.424	[31mERROR[0m	host/gin_logger.go:39	HTTP Request	{"status": 500, "method": "GET", "path": "/swagger/doc.json", "ip": "::1", "latency": 0}
+2025-04-29 09:37:59.228	[31mERROR[0m	host/gin_logger.go:39	HTTP Request	{"status": 500, "method": "GET", "path": "/swagger/doc.json", "ip": "::1", "latency": 0}
+2025-04-29 09:41:15.205	[34mINFO[0m	host/web_application.go:104	HTTP server starting...	{"port": "8081"}
+2025-04-29 09:41:19.248	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/doc.json", "ip": "::1", "latency": 0.0006541}
+2025-04-29 09:41:21.627	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/index.html", "ip": "::1", "latency": 0.0005031}
+2025-04-29 09:41:21.648	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/swagger-ui.css", "ip": "::1", "latency": 0.0005054}
+2025-04-29 09:41:21.652	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/swagger-ui-standalone-preset.js", "ip": "::1", "latency": 0.0011985}
+2025-04-29 09:41:21.652	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/swagger-ui-bundle.js", "ip": "::1", "latency": 0.0024789}
+2025-04-29 09:41:21.702	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/swagger-ui.css.map", "ip": "::1", "latency": 0}
+2025-04-29 09:41:21.733	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/swagger-ui-bundle.js.map", "ip": "::1", "latency": 0.0014079}
+2025-04-29 09:41:21.790	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/swagger-ui-standalone-preset.js.map", "ip": "::1", "latency": 0.0005049}
+2025-04-29 09:41:21.950	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/doc.json", "ip": "::1", "latency": 0}
+2025-04-29 09:41:21.969	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/favicon-32x32.png", "ip": "::1", "latency": 0}
+2025-04-29 09:59:02.160	[34mINFO[0m	host/web_application.go:104	HTTP server starting...	{"port": "8081"}
+2025-04-29 09:59:19.912	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/index.html", "ip": "::1", "latency": 0}
+2025-04-29 09:59:19.927	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/swagger-ui.css", "ip": "::1", "latency": 0.0015543}
+2025-04-29 09:59:19.930	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/swagger-ui-standalone-preset.js", "ip": "::1", "latency": 0.0017533}
+2025-04-29 09:59:19.932	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/swagger-ui-bundle.js", "ip": "::1", "latency": 0.0038739}
+2025-04-29 09:59:20.136	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/doc.json", "ip": "::1", "latency": 0}
+2025-04-29 09:59:20.142	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/favicon-32x32.png", "ip": "::1", "latency": 0}
+2025-04-29 09:59:20.947	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/index.html", "ip": "::1", "latency": 0}
+2025-04-29 09:59:20.963	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 304, "method": "GET", "path": "/swagger/swagger-ui.css", "ip": "::1", "latency": 0}
+2025-04-29 09:59:20.965	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 304, "method": "GET", "path": "/swagger/swagger-ui-bundle.js", "ip": "::1", "latency": 0}
+2025-04-29 09:59:20.965	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 304, "method": "GET", "path": "/swagger/swagger-ui-standalone-preset.js", "ip": "::1", "latency": 0}
+2025-04-29 09:59:21.113	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/doc.json", "ip": "::1", "latency": 0.0005236}
+2025-04-29 09:59:21.423	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/index.html", "ip": "::1", "latency": 0}
+2025-04-29 09:59:21.479	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/doc.json", "ip": "::1", "latency": 0}
+2025-04-29 09:59:22.046	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/index.html", "ip": "::1", "latency": 0}
+2025-04-29 09:59:22.060	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 304, "method": "GET", "path": "/swagger/swagger-ui.css", "ip": "::1", "latency": 0}
+2025-04-29 09:59:22.062	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 304, "method": "GET", "path": "/swagger/swagger-ui-bundle.js", "ip": "::1", "latency": 0}
+2025-04-29 09:59:22.062	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 304, "method": "GET", "path": "/swagger/swagger-ui-standalone-preset.js", "ip": "::1", "latency": 0.0003611}
+2025-04-29 09:59:22.117	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/doc.json", "ip": "::1", "latency": 0}
+2025-04-29 09:59:22.135	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 304, "method": "GET", "path": "/swagger/favicon-32x32.png", "ip": "::1", "latency": 0}
+2025-04-29 09:59:27.648	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/doc.json", "ip": "::1", "latency": 0}
+2025-04-29 09:59:28.191	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/doc.json", "ip": "::1", "latency": 0}
+2025-04-29 09:59:28.375	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/doc.json", "ip": "::1", "latency": 0.0015805}
+2025-04-29 09:59:28.545	[34mINFO[0m	host/gin_logger.go:43	HTTP Request	{"status": 200, "method": "GET", "path": "/swagger/doc.json", "ip": "::1", "latency": 0}

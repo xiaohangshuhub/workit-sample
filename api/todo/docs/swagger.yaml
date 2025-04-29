@@ -1,0 +1,76 @@
+definitions:
+  todoapp.CreateTodoCommand:
+    properties:
+      description:
+        description: 描述
+        type: string
+      title:
+        description: 标题
+        type: string
+    required:
+    - title
+    type: object
+  todoapp.CreateTodoResult:
+    properties:
+      success:
+        description: 是否成功
+        type: boolean
+    type: object
+  webapi.Response-any:
+    properties:
+      code:
+        description: 响应码
+        type: integer
+      data:
+        description: 响应数据
+      message:
+        description: 响应消息
+        type: string
+    type: object
+  webapi.Response-todoapp_CreateTodoResult:
+    properties:
+      code:
+        description: 响应码
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/todoapp.CreateTodoResult'
+        description: 响应数据
+      message:
+        description: 响应消息
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /todos:
+    post:
+      consumes:
+      - application/json
+      description: 创建新的待办事项
+      parameters:
+      - description: 请求参数
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/todoapp.CreateTodoCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/webapi.Response-todoapp_CreateTodoResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/webapi.Response-any'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/webapi.Response-any'
+      summary: 创建Todo
+      tags:
+      - Todos
+swagger: "2.0"

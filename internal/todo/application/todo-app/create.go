@@ -8,12 +8,12 @@ import (
 )
 
 type CreateTodoCommand struct {
-	Title       string  `json:"title" validate:"required"`
-	Description *string `json:"description"`
+	Title       string  `json:"title" validate:"required"` // 标题
+	Description *string `json:"description"`               // 描述
 }
 
 type CreateTodoResult struct {
-	Sucess bool `json:"success"`
+	Sucess bool `json:"success"` // 是否成功
 }
 
 type CreateTodoCommandHandler struct {
