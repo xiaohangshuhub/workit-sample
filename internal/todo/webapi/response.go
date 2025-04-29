@@ -11,6 +11,7 @@ type Response[T any] struct {
 	Code    int    `json:"code"`    // 响应码
 	Message string `json:"message"` // 响应消息
 	Data    T      `json:"data"`    // 响应数据
+
 }
 
 // Success 返回成功
