@@ -3,13 +3,15 @@ package main
 import (
 	"fmt"
 
-	"newb-sample/internal/todo/api"
 	"newb-sample/internal/todo/application"
 	"newb-sample/internal/todo/domain"
+	"newb-sample/internal/todo/webapi"
 	"newb-sample/pkg/cache"
 	"newb-sample/pkg/database"
 	"newb-sample/pkg/host"
 	"newb-sample/pkg/middleware"
+
+	_ "newb-sample/api/todo/docs" // swagger 一定要有这行
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -48,7 +50,7 @@ func main() {
 	app.UseSwagger()
 
 	// 配置路由
-	app.MapRoutes(api.RegisterTodoRoutes)
+	app.MapRoutes(webapi.RegisterTodoRoutes)
 
 	app.MapRoutes(func(router *gin.Engine) {
 		router.GET("/ping", func(c *gin.Context) {
