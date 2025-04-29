@@ -6,7 +6,6 @@ import (
 	"newb-sample/internal/todo/application"
 	"newb-sample/internal/todo/domain"
 	"newb-sample/internal/todo/webapi"
-	"newb-sample/pkg/cache"
 	"newb-sample/pkg/database"
 	"newb-sample/pkg/host"
 	"newb-sample/pkg/middleware"
@@ -28,9 +27,7 @@ func main() {
 	})
 
 	// 配置依赖注入
-	builder.ConfigureServices(database.PostgresModule())
-
-	builder.ConfigureServices(cache.RedisModule())
+	builder.ConfigureServices(database.MysqlModule())
 
 	// 领域层注入
 	builder.ConfigureServices(domain.DependencyInjection()...)

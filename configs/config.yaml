@@ -20,7 +20,7 @@ redis:
   pool_size: 10
 
 database:
-  dsn: "host=127.0.0.1 port=5432 user=your_user password=your_password dbname=admin_db sslmode=disable"
+  dsn: "root:pass123@tcp(127.0.0.1:3306)/newb?charset=utf8mb4&parseTime=True&loc=Local"
   log_level: "info"
   slow_threshold: 1s
   dry_run: false
