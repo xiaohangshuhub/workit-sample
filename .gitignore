@@ -23,3 +23,4 @@ go.work.sum
 
 # env file
 .env
+cmd/todo/logs/app.log
