@@ -35,12 +35,14 @@ func (h *CreateTodoCommandHandler) Handle(cmd CreateTodoCommand) (*CreateTodoRes
 	todo, err := h.manager.CreateTodo(cmd.Title, cmd.Description)
 
 	if err != nil {
+		h.log.Error("failed to create todo", zap.Error(err))
 		return nil, err
 	}
 
 	tx := h.db.Create(todo)
 
 	if tx.Error != nil {
+		h.log.Error("failed to save todo", zap.Error(tx.Error))
 		return nil, tx.Error
 	}
 

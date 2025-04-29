@@ -4,12 +4,14 @@ import (
 	todoapp "newb-sample/internal/todo/application/todo-app"
 
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 func RegisterTodoRoutes(
 	router *gin.Engine, //gin 放在第一位
+	log *zap.Logger,
 	create *todoapp.CreateTodoCommandHandler) {
-	router.POST("/todos", CreateTodoHandler(create))
+	router.POST("/todos", CreateTodoHandler(create, log))
 }
 
 // CreateTodoHandler godoc
@@ -23,12 +25,13 @@ func RegisterTodoRoutes(
 // @Failure 400 {object} Response[any]
 // @Failure 500 {object} Response[any]
 // @Router /todos [post]
-func CreateTodoHandler(handler *todoapp.CreateTodoCommandHandler) gin.HandlerFunc {
+func CreateTodoHandler(handler *todoapp.CreateTodoCommandHandler, log *zap.Logger) gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 		var cmd todoapp.CreateTodoCommand
 
 		if err := c.ShouldBindJSON(&cmd); err != nil {
+			log.Error("params error", zap.Error(err))
 			Fail(c, 400, "参数错误: "+err.Error())
 			return
 		}
@@ -36,6 +39,7 @@ func CreateTodoHandler(handler *todoapp.CreateTodoCommandHandler) gin.HandlerFun
 		result, err := handler.Handle(cmd)
 
 		if err != nil {
+			log.Error("create error", zap.Error(err))
 			Fail(c, 500, "创建失败: "+err.Error())
 			return
 		}

@@ -27,10 +27,12 @@ func (m *TodoManager) CreateTodo(title string, desc *string) (*Todo, error) {
 	tx := m.db.Where("title = ?", title).First(&todo)
 
 	if tx.Error != nil && !errors.Is(tx.Error, gorm.ErrRecordNotFound) {
+		m.log.Error("failed to check todo title", zap.Error(tx.Error))
 		return nil, tx.Error
 	}
 
 	if tx.RowsAffected != 0 {
+		m.log.Error("todo already exists", zap.String("title", title))
 		return nil, ErrTodoAlreadyExists
 	}
 
@@ -39,6 +41,7 @@ func (m *TodoManager) CreateTodo(title string, desc *string) (*Todo, error) {
 	todo.Description = desc
 
 	if err != nil {
+		m.log.Error("failed to create todo", zap.Error(err))
 		return nil, err
 	}
 
