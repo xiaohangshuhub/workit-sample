@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { CreateTodoRequest, CreateTodoResponse, Todo } from '../types/todo';
+import type { ApiResponse, CreateTodoRequest, CreateTodoResponse, Todo } from '../types/todo';
 
 const API_BASE = 'http://localhost:8081';
 
@@ -10,8 +10,8 @@ export const todoApi = {
   },
 
   async list(): Promise<Todo[]> {
-    const response = await axios.get<Todo[]>(`${API_BASE}/todos`);
-    return response.data;
+    const response = await axios.get<ApiResponse<Todo[]>>(`${API_BASE}/todos`);
+    return response.data.data; // 提取 data 字段中的数组
   },
 
   async get(id: string): Promise<Todo> {
@@ -26,4 +26,4 @@ export const todoApi = {
   async delete(id: string): Promise<void> {
     await axios.delete(`${API_BASE}/todos/${id}`);
   },
-}
+};
