@@ -26,33 +26,34 @@ func NewTodoQueryHandler(db *gorm.DB, log *zap.Logger) *TodoQueryHandler {
 }
 
 func (h *TodoQueryHandler) Handle(query TodoQuery) (*TodoDTO, error) {
+	var todoEntity todo.Todo
 
-	todo := todo.Todo{}
-
-	// 使用 Preload 加载关联的 Tasks
-	result := h.db.Preload("Tasks").First(&todo, "id = ?", query.ID)
-
-	if result.Error != nil {
-		h.log.Error("failed to query todoList", zap.Error(result.Error))
-		return nil, result.Error
+	// 预加载 Tasks，并按 ID 倒序排列
+	if err := h.db.
+		Preload("Tasks", func(db *gorm.DB) *gorm.DB {
+			return db.Order("id DESC")
+		}).
+		First(&todoEntity, "id = ?", query.ID).
+		Error; err != nil {
+		h.log.Error("failed to query todo", zap.Error(err))
+		return nil, err
 	}
 
-	// 将 todo 转换为 DTO
-	tasksDTO := make([]TaskDTO, len(todo.Tasks))
-	for i, task := range todo.Tasks {
-		tasksDTO[i] = TaskDTO{
+	// 转换为 DTO
+	todoDTO := &TodoDTO{
+		ID:    todoEntity.ID,
+		Title: todoEntity.Title,
+		Tasks: make([]TaskDTO, len(todoEntity.Tasks)),
+	}
+
+	for i, task := range todoEntity.Tasks {
+		todoDTO.Tasks[i] = TaskDTO{
 			ID:          task.ID,
 			Title:       task.Title,
 			Description: task.Description,
 			Completed:   task.Completed,
 			TodoID:      task.TodoID,
 		}
-	}
-
-	todoDTO := &TodoDTO{
-		ID:    todo.ID,
-		Title: todo.Title,
-		Tasks: tasksDTO,
 	}
 
 	return todoDTO, nil

@@ -28,31 +28,25 @@ func NewTodoListQueryHandler(db *gorm.DB, log *zap.Logger) *TodoListQueryHandler
 }
 
 func (h *TodoListQueryHandler) Handle(query TodoListQuery) ([]TodoDTO, error) {
+	var todos []todo.Todo
 
-	// 查询所有的待办事项
-	todoList := []todo.Todo{}
-
-	// query  我这里没有使用条件查询
-
-	result := h.db.Find(&todoList)
-
-	if result.Error != nil {
-		h.log.Error("failed to query todoList", zap.Error(result.Error))
-		return nil, result.Error
+	// 查询所有待办事项，按 ID 倒序排列
+	if err := h.db.Order("id DESC").Find(&todos).Error; err != nil {
+		h.log.Error("failed to query todo list", zap.Error(err))
+		return nil, err
 	}
 
-	todoDTOList := make([]TodoDTO, len(todoList))
+	todoDTOs := make([]TodoDTO, len(todos))
 
-	// 将 todoList 转换为 TodoDTO
-	for i, t := range todoList {
-		todoDTOList[i] = TodoDTO{
+	for i, t := range todos {
+		todoDTOs[i] = TodoDTO{
 			ID:          t.ID,
 			Title:       t.Title,
 			Description: t.Description,
 			Completed:   t.Completed,
-			Tasks:       make([]TaskDTO, 0),
+			Tasks:       []TaskDTO{}, // 为空但保持字段一致性
 		}
 	}
 
-	return todoDTOList, nil
+	return todoDTOs, nil
 }
