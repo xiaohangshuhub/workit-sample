@@ -169,22 +169,40 @@ export default function TodoList() {
     <Card
       key={task.id}
       style={{
-        borderRadius: '6px', // 缩小圆角
-        boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)', // 减弱阴影
-        backgroundColor: '#fff',
-        padding: '12px', // 减少内边距
+        borderRadius: '6px',
+        boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)',
+        backgroundColor: task.completed ? '#fffaf5' : '#fff', // 已完成任务使用浅灰色背景
+        opacity: task.completed ? 1 : 1, // 保持透明度一致
+        padding: '12px',
       }}
-      title={<span style={{ fontWeight: 'bold', fontSize: '14px' }}>{task.title}</span>}
+      title={
+        <span
+          style={{
+            fontWeight: 'bold',
+            fontSize: '14px',
+            color: task.completed ? '#8c8c8c' : '#000', // 已完成任务使用灰色字体
+          }}
+        >
+          {task.title}
+        </span>
+      }
       extra={
         <Checkbox
           checked={task.completed}
+          disabled={task.completed} // 禁用已完成的任务
           onChange={() => handleMarkTaskAsCompleted(task.id)} // 调用标记完成逻辑
         >
           完成
         </Checkbox>
       }
     >
-      <p style={{ color: '#595959', fontSize: '12px', marginBottom: 0 }}>
+      <p
+        style={{
+          color: task.completed ? '#8c8c8c' : '#595959', // 已完成任务使用灰色字体
+          fontSize: '12px',
+          marginBottom: 0,
+        }}
+      >
         {task.description || '暂无详情'}
       </p>
     </Card>
