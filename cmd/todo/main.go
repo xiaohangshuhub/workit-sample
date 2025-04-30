@@ -41,10 +41,13 @@ func main() {
 		fmt.Printf("Failed to build application: %v\n", err)
 		return
 	}
+
+	if app.Env.IsDevelopment {
+		app.UseSwagger()
+	}
+
 	//配置请求中间件,支持跳过
 	app.UseMiddleware(middleware.NewAuthorizationMiddleware([]string{"/hello"}))
-
-	app.UseSwagger()
 
 	// 配置路由
 	app.MapRoutes(webapi.RegisterTodoRoutes)
