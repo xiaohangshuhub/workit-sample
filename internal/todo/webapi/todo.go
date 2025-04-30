@@ -9,9 +9,12 @@ import (
 
 func RegisterTodoRoutes(
 	router *gin.Engine, //gin 放在第一位
-	log *zap.Logger,
-	create *todo.CreateTodoCommandHandler,
-	todoList *todo.TodoListQueryHandler) {
+	log *zap.Logger, // 日志
+	create *todo.CreateTodoCommandHandler, // 创建
+	todoList *todo.TodoListQueryHandler, //列表
+	addTask *todo.AddTodoTaskCommandHandler, //添加任务
+	todoQuery *todo.TodoQueryHandler, //查询
+) {
 
 	// 创建路由组
 	group := router.Group("/todos")
@@ -19,6 +22,8 @@ func RegisterTodoRoutes(
 	// 创建路由
 	group.POST("", CreateTodoHandler(create, log))
 	group.GET("", TodoListQueryHandler(todoList, log))
+	group.POST("/task", AddTodoTaskHandler(addTask, log))
+	group.GET("/:id", TodoQueryHandler(todoQuery, log))
 }
 
 // CreateTodoHandler godoc
@@ -73,6 +78,69 @@ func TodoListQueryHandler(handler *todo.TodoListQueryHandler, log *zap.Logger) g
 
 		if err := c.ShouldBindQuery(&query); err != nil {
 			log.Error("params error", zap.Error(err))
+			Fail(c, 400, "参数错误: "+err.Error())
+			return
+		}
+
+		result, err := handler.Handle(query)
+		if err != nil {
+			log.Error("query error", zap.Error(err))
+			Fail(c, 500, "查询失败: "+err.Error())
+			return
+		}
+		Success(c, result)
+	}
+}
+
+// AddTodoTaskHandler godoc
+// @Summary 添加任务
+// @Description 为指定的待办事项添加任务
+// @Tags Todos
+// @Accept json
+// @Produce json
+// @Param data body todo.AddTodoTaskCommand true "请求参数"
+// @Success 200 {object} Response[bool]
+// @Failure 400 {object} Response[any]
+// @Failure 500 {object} Response[any]
+// @Router /todos/task [post]
+func AddTodoTaskHandler(handler *todo.AddTodoTaskCommandHandler, log *zap.Logger) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var cmd todo.AddTodoTaskCommand
+
+		if err := c.ShouldBindJSON(&cmd); err != nil {
+			log.Error("params error", zap.Error(err))
+			Fail(c, 400, "参数错误: "+err.Error())
+			return
+		}
+
+		result, err := handler.Handle(cmd)
+		if err != nil {
+			log.Error("add task error", zap.Error(err))
+			Fail(c, 500, "添加任务失败: "+err.Error())
+			return
+		}
+		Success(c, result)
+	}
+}
+
+// TodoQueryHandler godoc
+// @Summary 查询Todo
+// @Description 查询指定ID的待办事项
+// @Tags Todos
+// @Accept json
+// @Produce json
+// @Param id path string true "待办事项ID"
+// @Success 200 {object} Response[todo.TodoDTO]
+// @Failure 400 {object} Response[any]
+// @Failure 500 {object} Response[any]
+// @Router /todos/{id} [get]
+func TodoQueryHandler(handler *todo.TodoQueryHandler, log *zap.Logger) gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		var query todo.TodoQuery
+
+		if err := c.ShouldBindUri(&query); err != nil {
+			log.Error("uri bind error", zap.Error(err))
 			Fail(c, 400, "参数错误: "+err.Error())
 			return
 		}

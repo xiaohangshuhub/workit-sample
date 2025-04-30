@@ -113,9 +113,116 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/todos/task": {
+            "post": {
+                "description": "为指定的待办事项添加任务",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Todos"
+                ],
+                "summary": "添加任务",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/todo.AddTodoTaskCommand"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/webapi.Response-bool"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/webapi.Response-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/webapi.Response-any"
+                        }
+                    }
+                }
+            }
+        },
+        "/todos/{id}": {
+            "get": {
+                "description": "查询指定ID的待办事项",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Todos"
+                ],
+                "summary": "查询Todo",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "待办事项ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/webapi.Response-todo_TodoDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/webapi.Response-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/webapi.Response-any"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "todo.AddTodoTaskCommand": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "From supermarket"
+                },
+                "title": {
+                    "type": "string",
+                    "example": "Buy milk"
+                },
+                "todoId": {
+                    "type": "string",
+                    "example": "b19e6f4c-3d51-4f7e-9a6e-f32d28a3f111"
+                }
+            }
+        },
         "todo.CreateTodoCommand": {
             "type": "object",
             "required": [
@@ -141,9 +248,13 @@ const docTemplate = `{
                 }
             }
         },
-        "todo.TodoDTO": {
+        "todo.TaskDTO": {
             "type": "object",
             "properties": {
+                "completed": {
+                    "type": "boolean",
+                    "example": false
+                },
                 "description": {
                     "type": "string",
                     "example": "From supermarket"
@@ -151,6 +262,37 @@ const docTemplate = `{
                 "id": {
                     "type": "string",
                     "example": "b19e6f4c-3d51-4f7e-9a6e-f32d28a3f111"
+                },
+                "title": {
+                    "type": "string",
+                    "example": "Buy milk"
+                },
+                "todoId": {
+                    "type": "string",
+                    "example": "b19e6f4c-3d51-4f7e-9a6e-f32d28a3f111"
+                }
+            }
+        },
+        "todo.TodoDTO": {
+            "type": "object",
+            "properties": {
+                "completed": {
+                    "type": "boolean",
+                    "example": false
+                },
+                "description": {
+                    "type": "string",
+                    "example": "From supermarket"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "b19e6f4c-3d51-4f7e-9a6e-f32d28a3f111"
+                },
+                "tasks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/todo.TaskDTO"
+                    }
                 },
                 "title": {
                     "type": "string",
@@ -194,6 +336,23 @@ const docTemplate = `{
                 }
             }
         },
+        "webapi.Response-bool": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "响应码",
+                    "type": "integer"
+                },
+                "data": {
+                    "description": "响应数据",
+                    "type": "boolean"
+                },
+                "message": {
+                    "description": "响应消息",
+                    "type": "string"
+                }
+            }
+        },
         "webapi.Response-todo_CreateTodoResult": {
             "type": "object",
             "properties": {
@@ -206,6 +365,27 @@ const docTemplate = `{
                     "allOf": [
                         {
                             "$ref": "#/definitions/todo.CreateTodoResult"
+                        }
+                    ]
+                },
+                "message": {
+                    "description": "响应消息",
+                    "type": "string"
+                }
+            }
+        },
+        "webapi.Response-todo_TodoDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "响应码",
+                    "type": "integer"
+                },
+                "data": {
+                    "description": "响应数据",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/todo.TodoDTO"
                         }
                     ]
                 },

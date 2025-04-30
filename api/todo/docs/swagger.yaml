@@ -1,4 +1,16 @@
 definitions:
+  todo.AddTodoTaskCommand:
+    properties:
+      description:
+        example: From supermarket
+        type: string
+      title:
+        example: Buy milk
+        type: string
+      todoId:
+        example: b19e6f4c-3d51-4f7e-9a6e-f32d28a3f111
+        type: string
+    type: object
   todo.CreateTodoCommand:
     properties:
       description:
@@ -16,14 +28,39 @@ definitions:
         description: 是否成功
         type: boolean
     type: object
-  todo.TodoDTO:
+  todo.TaskDTO:
     properties:
+      completed:
+        example: false
+        type: boolean
       description:
         example: From supermarket
         type: string
       id:
         example: b19e6f4c-3d51-4f7e-9a6e-f32d28a3f111
         type: string
+      title:
+        example: Buy milk
+        type: string
+      todoId:
+        example: b19e6f4c-3d51-4f7e-9a6e-f32d28a3f111
+        type: string
+    type: object
+  todo.TodoDTO:
+    properties:
+      completed:
+        example: false
+        type: boolean
+      description:
+        example: From supermarket
+        type: string
+      id:
+        example: b19e6f4c-3d51-4f7e-9a6e-f32d28a3f111
+        type: string
+      tasks:
+        items:
+          $ref: '#/definitions/todo.TaskDTO'
+        type: array
       title:
         example: Buy milk
         type: string
@@ -53,6 +90,18 @@ definitions:
         description: 响应消息
         type: string
     type: object
+  webapi.Response-bool:
+    properties:
+      code:
+        description: 响应码
+        type: integer
+      data:
+        description: 响应数据
+        type: boolean
+      message:
+        description: 响应消息
+        type: string
+    type: object
   webapi.Response-todo_CreateTodoResult:
     properties:
       code:
@@ -61,6 +110,19 @@ definitions:
       data:
         allOf:
         - $ref: '#/definitions/todo.CreateTodoResult'
+        description: 响应数据
+      message:
+        description: 响应消息
+        type: string
+    type: object
+  webapi.Response-todo_TodoDTO:
+    properties:
+      code:
+        description: 响应码
+        type: integer
+      data:
+        allOf:
+        - $ref: '#/definitions/todo.TodoDTO'
         description: 响应数据
       message:
         description: 响应消息
@@ -132,6 +194,65 @@ paths:
           schema:
             $ref: '#/definitions/webapi.Response-any'
       summary: 创建Todo
+      tags:
+      - Todos
+  /todos/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 查询指定ID的待办事项
+      parameters:
+      - description: 待办事项ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/webapi.Response-todo_TodoDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/webapi.Response-any'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/webapi.Response-any'
+      summary: 查询Todo
+      tags:
+      - Todos
+  /todos/task:
+    post:
+      consumes:
+      - application/json
+      description: 为指定的待办事项添加任务
+      parameters:
+      - description: 请求参数
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/todo.AddTodoTaskCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/webapi.Response-bool'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/webapi.Response-any'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/webapi.Response-any'
+      summary: 添加任务
       tags:
       - Todos
 swagger: "2.0"

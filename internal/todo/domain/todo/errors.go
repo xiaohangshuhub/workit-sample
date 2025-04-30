@@ -13,4 +13,5 @@ var (
 	ErrTodoAlreadyExists = TodoError{Message: "待办事项已存在"}
 	ErrEmptyTaskTitle    = TodoError{Message: "任务标题不能为空"}
 	ErrTaskNotFound      = TodoError{Message: "任务未找到"}
+	ErrTaskTitleExists   = TodoError{Message: "任务标题已存在"}
 )

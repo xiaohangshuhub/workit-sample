@@ -27,14 +27,23 @@ func NewTodo(id uuid.UUID, title string) (*Todo, error) {
 }
 
 func (t *Todo) AddTask(taskId uuid.UUID, title string, description *string) error {
+
+	// 判断标题是否为空
 	if str.IsEmptyOrWhiteSpace(title) {
 		return ErrEmptyTaskTitle
+	}
+
+	// 判读task 中标题是否存在
+	for _, task := range t.Tasks {
+		if task.Title == title {
+			return ErrTaskTitleExists
+		}
 	}
 
 	task := Task{
 		Entity:      ddd.NewEntity(taskId),
 		Title:       title,
-		Description: *description,
+		Description: description,
 		Completed:   false,
 	}
 
