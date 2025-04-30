@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Input, Button, Badge, Typography, List, Empty, Row, Col, Modal, Form, message as antMessage } from 'antd';
+import { Input, Button, Badge, Typography, List, Empty, Row, Col, Modal, Form, message as antMessage, Card, Checkbox } from 'antd';
 import { todoApi } from '../api/todo';
 import type { CreateTodoRequest, Todo } from '../types/todo';
 
@@ -47,6 +47,16 @@ export default function TodoList() {
     },
   });
 
+  const fetchTodoMutation = useMutation({
+    mutationFn: (todoId: string) => todoApi.get(todoId),
+    onSuccess: (data) => {
+      setSelectedTodo(data);
+    },
+    onError: (error: any) => {
+      antMessage.error(error?.response?.data?.message || '加载待办事项失败');
+    },
+  });
+
   const handleAddTodo = () => {
     todoForm.validateFields().then((values) => {
       createTodoMutation.mutate({
@@ -67,22 +77,15 @@ export default function TodoList() {
     });
   };
 
+  // 修改点击待办事项的逻辑
+  const handleSelectTodo = (todo: Todo) => {
+    fetchTodoMutation.mutate(todo.id);
+  };
+
   return (
-    <Row
-      style={{ height: '100vh', width: '100%' }}
-      gutter={0}
-      wrap={false}
-    >
+    <Row style={{ height: '100vh', width: '100%' }} gutter={0} wrap={false}>
       {/* 左侧菜单栏 */}
-      <Col
-        flex="250px"
-        style={{
-          height: '100%',
-          padding: '24px',
-          backgroundColor: '#fff',
-          borderRight: '1px solid #f0f0f0'
-        }}
-      >
+      <Col flex="250px" style={{ height: '100%', padding: '24px', backgroundColor: '#fff', borderRight: '1px solid #f0f0f0' }}>
         <Title level={4} style={{ marginBottom: 24 }}>待办事项管理</Title>
         <Button
           type="primary"
@@ -102,7 +105,7 @@ export default function TodoList() {
           dataSource={todos}
           renderItem={(todo) => (
             <List.Item
-              onClick={() => setSelectedTodo(todo)}
+              onClick={() => handleSelectTodo(todo)} // 调用新的点击逻辑
               style={{
                 padding: '12px 16px',
                 cursor: 'pointer',
@@ -122,74 +125,51 @@ export default function TodoList() {
         />
       </Col>
 
-      {/* 右侧铺满内容区域 */}
-      <Col
-        flex="auto"
-        style={{
-          height: '100%',
-          backgroundColor: '#fff',
-          padding: '24px',
-          overflow: 'hidden'
-        }}
-      >
+      {/* 右侧内容区域 */}
+      <Col flex="auto" style={{ height: '100%', backgroundColor: '#f5f5f5', padding: '24px', overflow: 'hidden' }}>
         {selectedTodo ? (
-          <div style={{
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column'
-          }}>
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'center',
-              marginBottom: '24px'
-            }}>
+          <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
               <Title level={3} style={{ margin: 0 }}>{selectedTodo.title}</Title>
-              <Button
-                type="primary"
-                style={{
-                  height: '32px', // 调整按钮高度
-                  padding: '0 16px', // 调整按钮内边距
-                  fontSize: '14px', // 调整字体大小
-                }}
-                onClick={() => setIsTaskModalOpen(true)}
-              >
+              <Button type="primary" style={{ height: '32px', padding: '0 16px', fontSize: '14px' }} onClick={() => setIsTaskModalOpen(true)}>
                 添加任务
               </Button>
             </div>
-            <div style={{ flex: 1, overflowY: 'auto' }}>
-              <List
-                dataSource={selectedTodo.tasks}
-                renderItem={(task) => (
-                  <List.Item style={{ padding: '12px 0', borderBottom: '1px solid #f0f0f0' }}>
-                    <span>{task.title}</span>
-                  </List.Item>
-                )}
-                locale={{ emptyText: '暂无任务' }}
-              />
-            </div>
+            <div style={{
+  flex: 1,
+  overflowY: 'auto',
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', // 调整卡片宽度
+  gap: '12px', // 缩小卡片间距
+}}>
+  {selectedTodo.tasks.map((task) => (
+    <Card
+      key={task.id}
+      style={{
+        borderRadius: '6px', // 缩小圆角
+        boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)', // 减弱阴影
+        backgroundColor: '#fff',
+        padding: '12px', // 减少内边距
+      }}
+      title={<span style={{ fontWeight: 'bold', fontSize: '14px' }}>{task.title}</span>} // 调整标题字体大小
+      extra={<Checkbox checked={task.completed}>完成</Checkbox>}
+    >
+      <p style={{ color: '#595959', fontSize: '12px', marginBottom: 0 }}> {/* 调整字体大小 */}
+        {task.description || '暂无详情'}
+      </p>
+    </Card>
+  ))}
+</div>
           </div>
         ) : (
-          <div style={{
-            height: '100%',
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
+          <div style={{ height: '100%', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Empty description="请选择一个待办事项" style={{ transform: 'scale(1.3)' }} />
           </div>
         )}
       </Col>
 
       {/* 添加待办事项的弹窗 */}
-      <Modal
-        title="添加待办事项"
-        visible={isTodoModalOpen}
-        onCancel={() => setIsTodoModalOpen(false)}
-        onOk={handleAddTodo}
-        confirmLoading={createTodoMutation.isLoading}
-      >
+      <Modal title="添加待办事项" visible={isTodoModalOpen} onCancel={() => setIsTodoModalOpen(false)} onOk={handleAddTodo} confirmLoading={createTodoMutation.isLoading}>
         <Form form={todoForm} layout="vertical">
           <Form.Item
             name="title"
@@ -208,13 +188,7 @@ export default function TodoList() {
       </Modal>
 
       {/* 添加任务的弹窗 */}
-      <Modal
-        title="添加任务"
-        visible={isTaskModalOpen}
-        onCancel={() => setIsTaskModalOpen(false)}
-        onOk={handleAddTask}
-        confirmLoading={addTaskMutation.isLoading}
-      >
+      <Modal title="添加任务" visible={isTaskModalOpen} onCancel={() => setIsTaskModalOpen(false)} onOk={handleAddTask} confirmLoading={addTaskMutation.isLoading}>
         <Form form={taskForm} layout="vertical">
           <Form.Item
             name="title"
