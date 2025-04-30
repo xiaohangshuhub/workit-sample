@@ -60,6 +60,26 @@ export default function TodoList() {
     },
   });
 
+  const markTaskAsCompletedMutation = useMutation({
+    mutationFn: ({ taskId, todoId }: { taskId: string; todoId: string }) =>
+      todoApi.markAsCompleted({ taskId, todoId }), // 调用封装的 API 方法
+    onSuccess: () => {
+      if (selectedTodo) {
+        fetchTodoMutation.mutate(selectedTodo.id); // 重新加载选中的待办事项
+      }
+      antMessage.success('任务已标记为完成');
+    },
+    onError: (error: any) => {
+      antMessage.error(error.message || '标记任务完成失败');
+    },
+  });
+
+  // 添加标记任务完成的处理函数
+  const handleMarkTaskAsCompleted = (taskId: string) => {
+    if (!selectedTodo) return;
+    markTaskAsCompletedMutation.mutate({ taskId, todoId: selectedTodo.id });
+  };
+
   const handleAddTodo = () => {
     todoForm.validateFields().then((values) => {
       createTodoMutation.mutate({
@@ -154,10 +174,17 @@ export default function TodoList() {
         backgroundColor: '#fff',
         padding: '12px', // 减少内边距
       }}
-      title={<span style={{ fontWeight: 'bold', fontSize: '14px' }}>{task.title}</span>} // 调整标题字体大小
-      extra={<Checkbox checked={task.completed}>完成</Checkbox>}
+      title={<span style={{ fontWeight: 'bold', fontSize: '14px' }}>{task.title}</span>}
+      extra={
+        <Checkbox
+          checked={task.completed}
+          onChange={() => handleMarkTaskAsCompleted(task.id)} // 调用标记完成逻辑
+        >
+          完成
+        </Checkbox>
+      }
     >
-      <p style={{ color: '#595959', fontSize: '12px', marginBottom: 0 }}> {/* 调整字体大小 */}
+      <p style={{ color: '#595959', fontSize: '12px', marginBottom: 0 }}>
         {task.description || '暂无详情'}
       </p>
     </Card>

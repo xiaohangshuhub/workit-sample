@@ -66,4 +66,19 @@ export const todoApi = {
       throw new Error(result.message || '添加任务失败');
     }
   },
+
+  async markAsCompleted(data: { taskId: string; todoId: string }): Promise<void> {
+    const response = await fetch(`${API_BASE}/todos/completed`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    if (result.code !== 0) {
+      throw new Error(result.message || '标记任务完成失败');
+    }
+  },
 };
