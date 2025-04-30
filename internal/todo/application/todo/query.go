@@ -44,6 +44,8 @@ func (h *TodoQueryHandler) Handle(query TodoQuery) (*TodoDTO, error) {
 			ID:          task.ID,
 			Title:       task.Title,
 			Description: task.Description,
+			Completed:   task.Completed,
+			TodoID:      task.TodoID,
 		}
 	}
 

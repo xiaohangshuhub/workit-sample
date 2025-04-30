@@ -45,6 +45,7 @@ func (t *Todo) AddTask(taskId uuid.UUID, title string, description *string) erro
 		Title:       title,
 		Description: description,
 		Completed:   false,
+		TodoID:      t.ID,
 	}
 
 	t.Tasks = append(t.Tasks, task)

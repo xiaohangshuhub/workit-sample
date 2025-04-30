@@ -38,7 +38,7 @@ func (h *AddTodoTaskCommandHandler) Handle(cmd AddTodoTaskCommand) (bool, error)
 		return false, result.Error
 	}
 
-	err := todo.AddTask(cmd.TodoID, cmd.Title, cmd.Description)
+	err := todo.AddTask(uuid.New(), cmd.Title, cmd.Description)
 
 	if err != nil {
 		h.log.Error("failed to add task", zap.Error(err))
