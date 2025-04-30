@@ -49,6 +49,9 @@ func (t *Todo) AddTask(taskId uuid.UUID, title string, description *string) erro
 	}
 
 	t.Tasks = append(t.Tasks, task)
+
+	// todo 任务添加了新的任务后，默认未完成
+	t.Completed = false
 	return nil
 }
 
