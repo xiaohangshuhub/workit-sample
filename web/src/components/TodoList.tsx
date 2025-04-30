@@ -24,8 +24,9 @@ export default function TodoList() {
       setTitle('');
       antMessage.success('创建成功');
     },
-    onError: (error: Error) => {
-      antMessage.error(error.message || '创建失败');
+    onError: (error: any) => {
+      const errorMessage = error.response?.data?.message || '操作失败，请稍后重试';
+      antMessage.error(errorMessage);
     },
   });
 
