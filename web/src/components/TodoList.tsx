@@ -34,16 +34,19 @@ export default function TodoList() {
   });
 
   const addTaskMutation = useMutation({
-    mutationFn: ({ todoId, title }: { todoId: string; title: string }) =>
-      todoApi.addTask(todoId, { title }),
+    mutationFn: ({ todoId, title, description }: { todoId: string; title: string; description: string }) =>
+      todoApi.addTask({ todoId, title, description }), // 使用封装的 API 方法
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['todos'] });
+      if (selectedTodo) {
+        fetchTodoMutation.mutate(selectedTodo.id); // 重新加载选中的待办事项
+      }
       taskForm.resetFields();
       setIsTaskModalOpen(false);
       antMessage.success('任务添加成功');
     },
     onError: (error: any) => {
-      antMessage.error(error?.response?.data?.message || '添加失败');
+      antMessage.error(error.message || '添加失败');
     },
   });
 
@@ -169,7 +172,7 @@ export default function TodoList() {
       </Col>
 
       {/* 添加待办事项的弹窗 */}
-      <Modal title="添加待办事项" visible={isTodoModalOpen} onCancel={() => setIsTodoModalOpen(false)} onOk={handleAddTodo} confirmLoading={createTodoMutation.isLoading}>
+      <Modal title="添加待办事项" visible={isTodoModalOpen} onCancel={() => setIsTodoModalOpen(false)} onOk={handleAddTodo}>
         <Form form={todoForm} layout="vertical">
           <Form.Item
             name="title"
@@ -188,7 +191,7 @@ export default function TodoList() {
       </Modal>
 
       {/* 添加任务的弹窗 */}
-      <Modal title="添加任务" visible={isTaskModalOpen} onCancel={() => setIsTaskModalOpen(false)} onOk={handleAddTask} confirmLoading={addTaskMutation.isLoading}>
+      <Modal title="添加任务" visible={isTaskModalOpen} onCancel={() => setIsTaskModalOpen(false)} onOk={handleAddTask}>
         <Form form={taskForm} layout="vertical">
           <Form.Item
             name="title"

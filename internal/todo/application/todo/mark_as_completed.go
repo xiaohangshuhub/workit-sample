@@ -8,25 +8,24 @@ import (
 	"gorm.io/gorm"
 )
 
-type AddTodoTaskCommand struct {
-	TodoID      uuid.UUID `json:"todoId" example:"b19e6f4c-3d51-4f7e-9a6e-f32d28a3f111"`
-	Title       string    `json:"title" example:"Buy milk"`
-	Description *string   `json:"description" example:"From supermarket"`
+type MarkAsCompletedCommand struct {
+	TodoID uuid.UUID `json:"todoId" example:"b19e6f4c-3d51-4f7e-9a6e-f32d28a3f111"`
+	TaskID uuid.UUID `json:"taskId" example:"b19e6f4c-3d51-4f7e-9a6e-f32d28a3f111"`
 }
 
-type AddTodoTaskCommandHandler struct {
+type MarkAsCompletedCommandHandler struct {
 	db  *gorm.DB
 	log *zap.Logger
 }
 
-func NewAddTodoTaskCommandHandler(db *gorm.DB, log *zap.Logger) *AddTodoTaskCommandHandler {
-	return &AddTodoTaskCommandHandler{
+func NewMarkAsCompletedCommandHandler(db *gorm.DB, log *zap.Logger) *MarkAsCompletedCommandHandler {
+	return &MarkAsCompletedCommandHandler{
 		db:  db,
 		log: log,
 	}
 }
 
-func (h *AddTodoTaskCommandHandler) Handle(cmd AddTodoTaskCommand) (bool, error) {
+func (h *MarkAsCompletedCommandHandler) Handle(cmd MarkAsCompletedCommand) (bool, error) {
 
 	todo := todo.Todo{}
 
@@ -38,7 +37,7 @@ func (h *AddTodoTaskCommandHandler) Handle(cmd AddTodoTaskCommand) (bool, error)
 		return false, result.Error
 	}
 
-	err := todo.AddTask(uuid.New(), cmd.Title, cmd.Description)
+	err := todo.MarkAsCompleted(cmd.TaskID)
 
 	if err != nil {
 		h.log.Error("failed to add task", zap.Error(err))

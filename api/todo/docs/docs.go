@@ -114,6 +114,52 @@ const docTemplate = `{
                 }
             }
         },
+        "/todos/completed": {
+            "post": {
+                "description": "将指定的任务标记为完成",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Todos"
+                ],
+                "summary": "标记任务为完成",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/todo.MarkAsCompletedCommand"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/webapi.Response-bool"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/webapi.Response-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/webapi.Response-any"
+                        }
+                    }
+                }
+            }
+        },
         "/todos/task": {
             "post": {
                 "description": "为指定的待办事项添加任务",
@@ -245,6 +291,19 @@ const docTemplate = `{
                 "success": {
                     "description": "是否成功",
                     "type": "boolean"
+                }
+            }
+        },
+        "todo.MarkAsCompletedCommand": {
+            "type": "object",
+            "properties": {
+                "taskId": {
+                    "type": "string",
+                    "example": "b19e6f4c-3d51-4f7e-9a6e-f32d28a3f111"
+                },
+                "todoId": {
+                    "type": "string",
+                    "example": "b19e6f4c-3d51-4f7e-9a6e-f32d28a3f111"
                 }
             }
         },

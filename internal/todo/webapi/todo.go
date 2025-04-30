@@ -14,6 +14,7 @@ func RegisterTodoRoutes(
 	todoList *todo.TodoListQueryHandler, //列表
 	addTask *todo.AddTodoTaskCommandHandler, //添加任务
 	todoQuery *todo.TodoQueryHandler, //查询
+	markAsCompleted *todo.MarkAsCompletedCommandHandler, //查询
 ) {
 
 	// 创建路由组
@@ -24,6 +25,7 @@ func RegisterTodoRoutes(
 	group.GET("", TodoListQueryHandler(todoList, log))
 	group.POST("/task", AddTodoTaskHandler(addTask, log))
 	group.GET("/:id", TodoQueryHandler(todoQuery, log))
+	group.POST("/completed", MarkAsCompletedHandler(markAsCompleted, log))
 }
 
 // CreateTodoHandler godoc
@@ -149,6 +151,37 @@ func TodoQueryHandler(handler *todo.TodoQueryHandler, log *zap.Logger) gin.Handl
 		if err != nil {
 			log.Error("query error", zap.Error(err))
 			Fail(c, 500, "查询失败: "+err.Error())
+			return
+		}
+		Success(c, result)
+	}
+}
+
+// MarkAsCompletedHandler godoc
+// @Summary 标记任务为完成
+// @Description 将指定的任务标记为完成
+// @Tags Todos
+// @Accept json
+// @Produce json
+// @Param data body todo.MarkAsCompletedCommand true "请求参数"
+// @Success 200 {object} Response[bool]
+// @Failure 400 {object} Response[any]
+// @Failure 500 {object} Response[any]
+// @Router /todos/completed [post]
+func MarkAsCompletedHandler(handler *todo.MarkAsCompletedCommandHandler, log *zap.Logger) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var cmd todo.MarkAsCompletedCommand
+
+		if err := c.ShouldBindJSON(&cmd); err != nil {
+			log.Error("params error", zap.Error(err))
+			Fail(c, 400, "参数错误: "+err.Error())
+			return
+		}
+
+		result, err := handler.Handle(cmd)
+		if err != nil {
+			log.Error("mark as completed error", zap.Error(err))
+			Fail(c, 500, "标记完成失败: "+err.Error())
 			return
 		}
 		Success(c, result)

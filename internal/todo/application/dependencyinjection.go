@@ -13,6 +13,7 @@ func DependencyInjection() []fx.Option {
 		fx.Provide(todo.NewTodoListQueryHandler),
 		fx.Provide(todo.NewAddTodoTaskCommandHandler),
 		fx.Provide(todo.NewTodoQueryHandler),
+		fx.Provide(todo.NewMarkAsCompletedCommandHandler),
 	}
 
 }

@@ -78,3 +78,26 @@ func (t *Todo) RemoveTasks(taskIds []uuid.UUID) error {
 	}
 	return nil
 }
+
+func (t *Todo) MarkAsCompleted(taskId uuid.UUID) error {
+	for i, task := range t.Tasks {
+		if task.ID == taskId {
+			t.Tasks[i].Completed = true
+
+			// 如果所有任务都完成，则将 Todo 标记为完成
+			allCompleted := true
+			for _, t := range t.Tasks {
+				if !t.Completed {
+					allCompleted = false
+					break
+				}
+			}
+			if allCompleted {
+				t.Completed = true
+			}
+
+			return nil
+		}
+	}
+	return ErrTaskNotFound
+}
