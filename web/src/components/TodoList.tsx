@@ -15,10 +15,6 @@ export default function TodoList() {
     queryKey: ['todos'],
     queryFn: todoApi.list,
     initialData: [], // 确保初始值为空数组
-    onError: (err) => {
-      antMessage.error('加载待办事项失败');
-      console.error(err);
-    },
   });
 
   const createMutation = useMutation({
