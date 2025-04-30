@@ -8,7 +8,6 @@ import (
 	"newb-sample/internal/todo/webapi"
 	"newb-sample/pkg/database"
 	"newb-sample/pkg/host"
-	"newb-sample/pkg/middleware"
 
 	_ "newb-sample/api/todo/docs" // swagger 一定要有这行
 
@@ -47,8 +46,9 @@ func main() {
 	}
 
 	//配置请求中间件,支持跳过
-	app.UseMiddleware(middleware.NewAuthorizationMiddleware([]string{"/hello"}))
+	//app.UseMiddleware(middleware.NewAuthorizationMiddleware([]string{"/hello"}))
 
+	app.UseCORS()
 	// 配置路由
 	app.MapRoutes(webapi.RegisterTodoRoutes)
 

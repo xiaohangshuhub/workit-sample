@@ -16,6 +16,59 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/todos": {
+            "get": {
+                "description": "查询所有匹配条件的待办事项",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Todos"
+                ],
+                "summary": "查询Todo列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "任务标题",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "size",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/webapi.Response-array_todo_TodoDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/webapi.Response-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/webapi.Response-any"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "创建新的待办事项",
                 "consumes": [
@@ -35,7 +88,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/todoapp.CreateTodoCommand"
+                            "$ref": "#/definitions/todo.CreateTodoCommand"
                         }
                     }
                 ],
@@ -43,7 +96,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/webapi.Response-todoapp_CreateTodoResult"
+                            "$ref": "#/definitions/webapi.Response-todo_CreateTodoResult"
                         }
                     },
                     "400": {
@@ -63,7 +116,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "todoapp.CreateTodoCommand": {
+        "todo.CreateTodoCommand": {
             "type": "object",
             "required": [
                 "title"
@@ -79,12 +132,29 @@ const docTemplate = `{
                 }
             }
         },
-        "todoapp.CreateTodoResult": {
+        "todo.CreateTodoResult": {
             "type": "object",
             "properties": {
                 "success": {
                     "description": "是否成功",
                     "type": "boolean"
+                }
+            }
+        },
+        "todo.TodoDTO": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "From supermarket"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "b19e6f4c-3d51-4f7e-9a6e-f32d28a3f111"
+                },
+                "title": {
+                    "type": "string",
+                    "example": "Buy milk"
                 }
             }
         },
@@ -104,7 +174,27 @@ const docTemplate = `{
                 }
             }
         },
-        "webapi.Response-todoapp_CreateTodoResult": {
+        "webapi.Response-array_todo_TodoDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "响应码",
+                    "type": "integer"
+                },
+                "data": {
+                    "description": "响应数据",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/todo.TodoDTO"
+                    }
+                },
+                "message": {
+                    "description": "响应消息",
+                    "type": "string"
+                }
+            }
+        },
+        "webapi.Response-todo_CreateTodoResult": {
             "type": "object",
             "properties": {
                 "code": {
@@ -115,7 +205,7 @@ const docTemplate = `{
                     "description": "响应数据",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/todoapp.CreateTodoResult"
+                            "$ref": "#/definitions/todo.CreateTodoResult"
                         }
                     ]
                 },

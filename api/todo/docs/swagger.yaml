@@ -1,5 +1,5 @@
 definitions:
-  todoapp.CreateTodoCommand:
+  todo.CreateTodoCommand:
     properties:
       description:
         description: 描述
@@ -10,11 +10,23 @@ definitions:
     required:
     - title
     type: object
-  todoapp.CreateTodoResult:
+  todo.CreateTodoResult:
     properties:
       success:
         description: 是否成功
         type: boolean
+    type: object
+  todo.TodoDTO:
+    properties:
+      description:
+        example: From supermarket
+        type: string
+      id:
+        example: b19e6f4c-3d51-4f7e-9a6e-f32d28a3f111
+        type: string
+      title:
+        example: Buy milk
+        type: string
     type: object
   webapi.Response-any:
     properties:
@@ -27,14 +39,28 @@ definitions:
         description: 响应消息
         type: string
     type: object
-  webapi.Response-todoapp_CreateTodoResult:
+  webapi.Response-array_todo_TodoDTO:
+    properties:
+      code:
+        description: 响应码
+        type: integer
+      data:
+        description: 响应数据
+        items:
+          $ref: '#/definitions/todo.TodoDTO'
+        type: array
+      message:
+        description: 响应消息
+        type: string
+    type: object
+  webapi.Response-todo_CreateTodoResult:
     properties:
       code:
         description: 响应码
         type: integer
       data:
         allOf:
-        - $ref: '#/definitions/todoapp.CreateTodoResult'
+        - $ref: '#/definitions/todo.CreateTodoResult'
         description: 响应数据
       message:
         description: 响应消息
@@ -44,6 +70,41 @@ info:
   contact: {}
 paths:
   /todos:
+    get:
+      consumes:
+      - application/json
+      description: 查询所有匹配条件的待办事项
+      parameters:
+      - description: 任务标题
+        in: query
+        name: title
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/webapi.Response-array_todo_TodoDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/webapi.Response-any'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/webapi.Response-any'
+      summary: 查询Todo列表
+      tags:
+      - Todos
     post:
       consumes:
       - application/json
@@ -54,14 +115,14 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/todoapp.CreateTodoCommand'
+          $ref: '#/definitions/todo.CreateTodoCommand'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/webapi.Response-todoapp_CreateTodoResult'
+            $ref: '#/definitions/webapi.Response-todo_CreateTodoResult'
         "400":
           description: Bad Request
           schema:
