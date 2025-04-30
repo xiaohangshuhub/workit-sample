@@ -49,14 +49,21 @@ export default function TodoList() {
 
   const handleAddTodo = () => {
     todoForm.validateFields().then((values) => {
-      createTodoMutation.mutate(values);
+      createTodoMutation.mutate({
+        title: values.title,
+        description: values.description, // 确保传递 description
+      });
     });
   };
 
   const handleAddTask = () => {
     if (!selectedTodo) return;
     taskForm.validateFields().then((values) => {
-      addTaskMutation.mutate({ todoId: selectedTodo.id, title: values.title });
+      addTaskMutation.mutate({
+        todoId: selectedTodo.id,
+        title: values.title,
+        description: values.description, // 确保传递 description
+      });
     });
   };
 
@@ -79,7 +86,12 @@ export default function TodoList() {
         <Title level={4} style={{ marginBottom: 24 }}>待办事项管理</Title>
         <Button
           type="primary"
-          style={{ width: '100%', marginBottom: 24 }}
+          style={{
+            width: '100%',
+            marginBottom: '24px',
+            height: '32px', // 调整按钮高度
+            fontSize: '14px', // 调整字体大小
+          }}
           onClick={() => setIsTodoModalOpen(true)}
         >
           添加待办事项
@@ -126,14 +138,25 @@ export default function TodoList() {
             display: 'flex',
             flexDirection: 'column'
           }}>
-            <Title level={3}>{selectedTodo.title}</Title>
-            <Button
-              type="primary"
-              style={{ marginBottom: '24px' }}
-              onClick={() => setIsTaskModalOpen(true)}
-            >
-              添加任务
-            </Button>
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center',
+              marginBottom: '24px'
+            }}>
+              <Title level={3} style={{ margin: 0 }}>{selectedTodo.title}</Title>
+              <Button
+                type="primary"
+                style={{
+                  height: '32px', // 调整按钮高度
+                  padding: '0 16px', // 调整按钮内边距
+                  fontSize: '14px', // 调整字体大小
+                }}
+                onClick={() => setIsTaskModalOpen(true)}
+              >
+                添加任务
+              </Button>
+            </div>
             <div style={{ flex: 1, overflowY: 'auto' }}>
               <List
                 dataSource={selectedTodo.tasks}
@@ -199,6 +222,12 @@ export default function TodoList() {
             rules={[{ required: true, message: '请输入任务标题' }]}
           >
             <Input placeholder="请输入任务标题" />
+          </Form.Item>
+          <Form.Item
+            name="description"
+            label="任务详情"
+          >
+            <Input.TextArea placeholder="请输入任务详情" rows={4} />
           </Form.Item>
         </Form>
       </Modal>

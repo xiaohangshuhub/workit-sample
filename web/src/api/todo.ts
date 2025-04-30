@@ -26,4 +26,10 @@ export const todoApi = {
   async delete(id: string): Promise<void> {
     await axios.delete(`${API_BASE}/todos/${id}`);
   },
+
+  async addTask(id: string): Promise<Todo> {
+    const response = await axios.get<Todo>(`${API_BASE}/todos/${id}`);
+    return response.data;
+  },
+
 };
