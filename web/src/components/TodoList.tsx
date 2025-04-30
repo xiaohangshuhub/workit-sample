@@ -135,12 +135,17 @@ export default function TodoList() {
                 borderRadius: 6,
                 backgroundColor: selectedTodo?.id === todo.id ? '#e6f4ff' : 'transparent',
                 border: selectedTodo?.id === todo.id ? '1px solid #1677ff' : '1px solid transparent',
-                marginBottom: 8
+                marginBottom: 8,
               }}
             >
-              <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-                <span>{todo.title}</span>
-                <Badge count={todo.tasks.length} size="small" />
+              <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontWeight: 'bold', color: todo.completed ? '#52c41a' : '#000' }}>
+                  {todo.title}
+                </span>
+                <Badge
+                  status={todo.completed ? 'success' : 'default'} // 使用 Badge 显示完成状态
+                  text={todo.completed ? '已完成' : '未完成'}
+                />
               </div>
             </List.Item>
           )}
