@@ -1,4 +1,4 @@
-package todoapp
+package todo
 
 import (
 	"newb-sample/internal/todo/domain/todo"

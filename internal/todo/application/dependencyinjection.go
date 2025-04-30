@@ -1,7 +1,7 @@
 package application
 
 import (
-	todoapp "newb-sample/internal/todo/application/todo-app"
+	todo "newb-sample/internal/todo/application/todo"
 
 	"go.uber.org/fx"
 )
@@ -9,7 +9,7 @@ import (
 func DependencyInjection() []fx.Option {
 
 	return []fx.Option{
-		fx.Provide(todoapp.NewCreateTodoCommandHandler),
+		fx.Provide(todo.NewCreateTodoCommandHandler),
 	}
 
 }

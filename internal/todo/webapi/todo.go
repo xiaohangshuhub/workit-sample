@@ -1,7 +1,7 @@
 package webapi
 
 import (
-	todoapp "newb-sample/internal/todo/application/todo-app"
+	"newb-sample/internal/todo/application/todo"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -10,7 +10,7 @@ import (
 func RegisterTodoRoutes(
 	router *gin.Engine, //gin 放在第一位
 	log *zap.Logger,
-	create *todoapp.CreateTodoCommandHandler) {
+	create *todo.CreateTodoCommandHandler) {
 	router.POST("/todos", CreateTodoHandler(create, log))
 }
 
@@ -25,10 +25,10 @@ func RegisterTodoRoutes(
 // @Failure 400 {object} Response[any]
 // @Failure 500 {object} Response[any]
 // @Router /todos [post]
-func CreateTodoHandler(handler *todoapp.CreateTodoCommandHandler, log *zap.Logger) gin.HandlerFunc {
+func CreateTodoHandler(handler *todo.CreateTodoCommandHandler, log *zap.Logger) gin.HandlerFunc {
 	return func(c *gin.Context) {
 
-		var cmd todoapp.CreateTodoCommand
+		var cmd todo.CreateTodoCommand
 
 		if err := c.ShouldBindJSON(&cmd); err != nil {
 			log.Error("params error", zap.Error(err))
