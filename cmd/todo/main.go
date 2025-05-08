@@ -6,12 +6,12 @@ import (
 	"newb-sample/internal/todo/application"
 	"newb-sample/internal/todo/domain"
 	"newb-sample/internal/todo/webapi"
-	"newb-sample/pkg/database"
-	"newb-sample/pkg/host"
 
 	_ "newb-sample/api/todo/docs" // swagger 一定要有这行
 
 	"github.com/gin-gonic/gin"
+	"github.com/lxhanghub/newb/pkg/database"
+	"github.com/lxhanghub/newb/pkg/host"
 	"go.uber.org/zap"
 )
 

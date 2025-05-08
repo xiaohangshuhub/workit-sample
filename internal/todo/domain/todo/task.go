@@ -1,7 +1,7 @@
 package todo
 
 import (
-	"newb-sample/pkg/ddd"
+	"github.com/lxhanghub/newb/pkg/ddd"
 
 	"github.com/google/uuid"
 )
