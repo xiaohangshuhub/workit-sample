@@ -8,7 +8,7 @@ import (
 )
 
 type Todo struct {
-	ddd.AggregateRoot[uuid.UUID]
+	ddd.BaseAggregateRoot[uuid.UUID]
 	Title       string  `json:"title" gorm:"column:title"`
 	Description *string `json:"description" gorm:"column:description"`
 	Completed   bool    `json:"completed" gorm:"column:completed"`
@@ -20,9 +20,9 @@ func NewTodo(id uuid.UUID, title string) (*Todo, error) {
 		return nil, ErrEmptyTodoTitle
 	}
 	return &Todo{
-		AggregateRoot: ddd.NewAggregateRoot(id),
-		Title:         title,
-		Completed:     false,
+		BaseAggregateRoot: ddd.NewBaseAggregateRoot(id),
+		Title:             title,
+		Completed:         false,
 	}, nil
 }
 
