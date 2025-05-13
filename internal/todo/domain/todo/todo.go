@@ -1,14 +1,14 @@
 package todo
 
 import (
-	"github.com/lxhanghub/newb/pkg/ddd"
-	"github.com/lxhanghub/newb/pkg/tools/str"
+	"github.com/lxhanghub/go-fish/pkg/ddd"
+	"github.com/lxhanghub/go-fish/pkg/tools/str"
 
 	"github.com/google/uuid"
 )
 
 type Todo struct {
-	ddd.AggregateRoot[uuid.UUID]
+	ddd.BaseAggregateRoot[uuid.UUID]
 	Title       string  `json:"title" gorm:"column:title"`
 	Description *string `json:"description" gorm:"column:description"`
 	Completed   bool    `json:"completed" gorm:"column:completed"`
@@ -20,9 +20,9 @@ func NewTodo(id uuid.UUID, title string) (*Todo, error) {
 		return nil, ErrEmptyTodoTitle
 	}
 	return &Todo{
-		AggregateRoot: ddd.NewAggregateRoot(id),
-		Title:         title,
-		Completed:     false,
+		BaseAggregateRoot: ddd.NewBaseAggregateRoot(id),
+		Title:             title,
+		Completed:         false,
 	}, nil
 }
 

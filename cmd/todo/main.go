@@ -3,15 +3,15 @@ package main
 import (
 	"fmt"
 
-	"newb-sample/internal/todo/application"
-	"newb-sample/internal/todo/domain"
-	"newb-sample/internal/todo/webapi"
+	"fish-sample/internal/todo/application"
+	"fish-sample/internal/todo/domain"
+	"fish-sample/internal/todo/webapi"
 
-	_ "newb-sample/api/todo/docs" // swagger 一定要有这行
+	_ "fish-sample/api/todo/docs" // swagger 一定要有这行
 
 	"github.com/gin-gonic/gin"
-	"github.com/lxhanghub/newb/pkg/database"
-	"github.com/lxhanghub/newb/pkg/host"
+	"github.com/lxhanghub/go-fish/pkg/database"
+	"github.com/lxhanghub/go-fish/pkg/host"
 	"go.uber.org/zap"
 )
 
@@ -22,7 +22,7 @@ func main() {
 
 	// 配置应用配置,内置环境变量读取和命令行参数读取
 	builder.ConfigureAppConfiguration(func(build host.ConfigBuilder) {
-		build.AddYamlFile("../../configs/config.yaml")
+		build.AddYamlFile("./config.yaml")
 	})
 
 	// 配置依赖注入

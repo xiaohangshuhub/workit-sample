@@ -1,7 +1,7 @@
 package todo
 
 import (
-	"newb-sample/internal/todo/domain/todo"
+	"fish-sample/internal/todo/domain/todo"
 
 	"go.uber.org/zap"
 	"gorm.io/gorm"
