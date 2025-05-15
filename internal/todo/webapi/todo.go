@@ -1,7 +1,7 @@
 package webapi
 
 import (
-	"fish-sample/internal/todo/application/todo"
+	"mfish-sample/internal/todo/application/todo"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"

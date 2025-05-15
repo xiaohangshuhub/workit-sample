@@ -1,7 +1,7 @@
 package application
 
 import (
-	todo "fish-sample/internal/todo/application/todo"
+	todo "mfish-sample/internal/todo/application/todo"
 
 	"go.uber.org/fx"
 )

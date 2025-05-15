@@ -1,7 +1,7 @@
 package todo
 
 import (
-	"fish-sample/internal/todo/domain/todo"
+	"mfish-sample/internal/todo/domain/todo"
 
 	"go.uber.org/zap"
 	"gorm.io/gorm"

@@ -1,4 +1,4 @@
-module fish-sample
+module mfish-sample
 
 go 1.24
 
@@ -6,6 +6,7 @@ toolchain go1.24.2
 
 require (
 	github.com/google/uuid v1.6.0
+	github.com/lxhanghub/go-mfish v0.0.0-20250515014611-c616be9aadbb
 	github.com/swaggo/swag v1.8.12
 	go.uber.org/fx v1.23.0
 	go.uber.org/zap v1.26.0
@@ -84,7 +85,6 @@ require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	github.com/lxhanghub/go-fish v0.0.0-20250513130343-fd28162b8a97
 	golang.org/x/text v0.23.0 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 	gorm.io/driver/mysql v1.5.7 // indirect
