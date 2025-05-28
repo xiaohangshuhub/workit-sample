@@ -1,7 +1,7 @@
 package todo
 
 import (
-	"mfish-sample/internal/todo/domain/todo"
+	"workit-sample/internal/todo/domain/todo"
 
 	"github.com/google/uuid"
 	"go.uber.org/zap"

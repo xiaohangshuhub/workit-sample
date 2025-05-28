@@ -3,15 +3,15 @@ package main
 import (
 	"fmt"
 
-	"mfish-sample/internal/todo/application"
-	"mfish-sample/internal/todo/domain"
-	"mfish-sample/internal/todo/webapi"
+	"workit-sample/internal/todo/application"
+	"workit-sample/internal/todo/domain"
+	"workit-sample/internal/todo/webapi"
 
-	_ "mfish-sample/api/todo/docs" // swagger 一定要有这行
+	_ "workit-sample/api/todo/docs" // swagger 一定要有这行
 
 	"github.com/gin-gonic/gin"
-	"github.com/lxhanghub/go-mfish/pkg/database"
-	"github.com/lxhanghub/go-mfish/pkg/host"
+	"github.com/lxhanghub/go-workit/pkg/database"
+	"github.com/lxhanghub/go-workit/pkg/host"
 	"go.uber.org/zap"
 )
 

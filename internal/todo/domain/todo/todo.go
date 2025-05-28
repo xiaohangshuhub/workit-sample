@@ -1,8 +1,8 @@
 package todo
 
 import (
-	"github.com/lxhanghub/go-mfish/pkg/ddd"
-	"github.com/lxhanghub/go-mfish/pkg/tools/str"
+	"github.com/lxhanghub/go-workit/pkg/ddd"
+	"github.com/lxhanghub/go-workit/pkg/tools/str"
 
 	"github.com/google/uuid"
 )

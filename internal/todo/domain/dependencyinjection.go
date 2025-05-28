@@ -1,7 +1,7 @@
 package domain
 
 import (
-	"mfish-sample/internal/todo/domain/todo"
+	"workit-sample/internal/todo/domain/todo"
 
 	"go.uber.org/fx"
 )
