@@ -1,3 +1,3 @@
 # workit-sample
 
-爱航平台-Golang快速开发模板（Work it）样例
+爱航工坊-Golang快速开发模板（Work it）样例
