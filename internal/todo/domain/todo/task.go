@@ -1,7 +1,7 @@
 package todo
 
 import (
-	"github.com/lxhanghub/go-workit/pkg/ddd"
+	"github.com/xiaohangshuhub/go-workit/pkg/ddd"
 
 	"github.com/google/uuid"
 )

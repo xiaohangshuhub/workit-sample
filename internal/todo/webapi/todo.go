@@ -8,7 +8,7 @@ import (
 )
 
 func RegisterTodoRoutes(
-	router *gin.Engine, //gin 放在第一位
+	router *gin.Engine, //gin
 	log *zap.Logger, // 日志
 	create *todo.CreateTodoCommandHandler, // 创建
 	todoList *todo.TodoListQueryHandler, //列表

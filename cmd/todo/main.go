@@ -10,8 +10,8 @@ import (
 	_ "workit-sample/api/todo/docs" // swagger 一定要有这行
 
 	"github.com/gin-gonic/gin"
-	"github.com/lxhanghub/go-workit/pkg/database"
-	"github.com/lxhanghub/go-workit/pkg/host"
+	"github.com/xiaohangshuhub/go-workit/pkg/database"
+	"github.com/xiaohangshuhub/go-workit/pkg/host"
 	"go.uber.org/zap"
 )
 
