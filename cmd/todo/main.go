@@ -11,27 +11,27 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/xiaohangshuhub/go-workit/pkg/database"
-	"github.com/xiaohangshuhub/go-workit/pkg/host"
+	"github.com/xiaohangshuhub/go-workit/pkg/workit"
 	"go.uber.org/zap"
 )
 
 func main() {
 
 	// 创建服务主机构建器
-	builder := host.NewWebHostBuilder()
+	builder := workit.NewWebAppBuilder()
 
 	// 配置应用配置,内置环境变量读取和命令行参数读取
-	builder.ConfigureAppConfiguration(func(build host.ConfigBuilder) {
+	builder.AddConfig(func(build workit.ConfigBuilder) {
 		build.AddYamlFile("./config.yaml")
 	})
 
 	// 配置依赖注入
-	builder.ConfigureServices(database.MysqlModule())
+	builder.AddServices(database.MysqlModule())
 
 	// 领域层注入
-	builder.ConfigureServices(domain.DependencyInjection()...)
+	builder.AddServices(domain.DependencyInjection()...)
 
-	builder.ConfigureServices(application.DependencyInjection()...)
+	builder.AddServices(application.DependencyInjection()...)
 
 	//构建应用
 	app, err := builder.Build()

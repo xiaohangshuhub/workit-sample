@@ -7,7 +7,7 @@ toolchain go1.24.2
 require (
 	github.com/google/uuid v1.6.0
 	github.com/swaggo/swag v1.8.12
-	github.com/xiaohangshuhub/go-workit v0.0.0-20250704124936-84fe41b3d3b3
+	github.com/xiaohangshuhub/go-workit v0.0.0-20250801082139-e9936f57ef8b
 	go.uber.org/fx v1.23.0
 	go.uber.org/zap v1.26.0
 	gorm.io/gorm v1.25.12
