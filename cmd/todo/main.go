@@ -40,9 +40,9 @@ func main() {
 			ValidateAudience:         true,
 			ValidateLifetime:         true,
 			ValidateIssuerSigningKey: true,
-			SigningKey:               []byte("Sinsegye Automation IDE&UI Group YYDS"),
-			ValidIssuer:              "Sinsegye SF8010",
-			ValidAudience:            "Sinsegye SF8010 User",
+			SigningKey:               []byte("Workit YYDS"),
+			ValidIssuer:              "workit-sample",
+			ValidAudience:            "workit-sample",
 			RequireExpiration:        true,
 		}
 	})
