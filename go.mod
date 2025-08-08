@@ -7,7 +7,7 @@ toolchain go1.24.2
 require (
 	github.com/google/uuid v1.6.0
 	github.com/swaggo/swag v1.8.12
-	github.com/xiaohangshuhub/go-workit v0.0.0-20250801082139-e9936f57ef8b
+	github.com/xiaohangshuhub/go-workit v0.0.0-20250808075946-b8dbdecbae63
 	go.uber.org/fx v1.23.0
 	go.uber.org/zap v1.26.0
 	gorm.io/gorm v1.25.12
@@ -33,6 +33,7 @@ require (
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/goccy/go-json v0.10.5 // indirect
 	github.com/goccy/go-reflect v1.2.0 // indirect
+	github.com/golang-jwt/jwt/v5 v5.3.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
@@ -81,7 +82,7 @@ require (
 )
 
 require (
-	github.com/gin-contrib/cors v1.7.5 // indirect
+	github.com/gin-contrib/cors v1.7.5
 	github.com/gin-gonic/gin v1.10.0
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect

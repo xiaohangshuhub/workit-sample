@@ -9,7 +9,7 @@ import (
 
 	_ "workit-sample/api/todo/docs" // swagger 一定要有这行
 
-	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
 	"github.com/xiaohangshuhub/go-workit/pkg/database"
 	"github.com/xiaohangshuhub/go-workit/pkg/workit"
 	"go.uber.org/zap"
@@ -33,6 +33,20 @@ func main() {
 
 	builder.AddServices(application.DependencyInjection()...)
 
+	builder.AddAuthentication().AddJwtBearer(func(options *workit.JwtBearerOptions) {
+
+		options.TokenValidationParameters = workit.TokenValidationParameters{
+			ValidateIssuer:           true,
+			ValidateAudience:         true,
+			ValidateLifetime:         true,
+			ValidateIssuerSigningKey: true,
+			SigningKey:               []byte("Sinsegye Automation IDE&UI Group YYDS"),
+			ValidIssuer:              "Sinsegye SF8010",
+			ValidAudience:            "Sinsegye SF8010 User",
+			RequireExpiration:        true,
+		}
+	})
+
 	//构建应用
 	app, err := builder.Build()
 
@@ -45,19 +59,20 @@ func main() {
 		app.UseSwagger()
 	}
 
-	//配置请求中间件,支持跳过
-	//app.UseMiddleware(middleware.NewAuthorizationMiddleware([]string{"/hello"}))
+	// 配置跨域
+	app.UseCORS(func(c *cors.Config) {
+		c.AllowAllOrigins = true
+		c.AllowCredentials = true
+	})
 
-	app.UseCORS()
+	// 配置鉴权
+	//	app.UseAuthentication()
+
+	// 配置授权
+	//	app.UseAuthorization()
+
 	// 配置路由
 	app.MapRoutes(webapi.RegisterTodoRoutes)
-
-	app.MapRoutes(func(router *gin.Engine) {
-		router.GET("/ping", func(c *gin.Context) {
-
-			c.JSON(200, gin.H{"message": "hello world"})
-		})
-	})
 
 	// 运行应用
 	if err := app.Run(); err != nil {
