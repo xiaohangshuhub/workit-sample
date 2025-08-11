@@ -90,6 +90,6 @@ func main() {
 
 	// 运行应用
 	if err := app.Run(); err != nil {
-		app.Logger().Error("Error running application", zap.Error(err))
+		app.Logger.Error("Error running application", zap.Error(err))
 	}
 }
