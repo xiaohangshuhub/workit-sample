@@ -40,12 +40,26 @@ func main() {
 			ValidateAudience:         true,
 			ValidateLifetime:         true,
 			ValidateIssuerSigningKey: true,
-			SigningKey:               []byte("Workit YYDS"),
-			ValidIssuer:              "workit-sample",
-			ValidAudience:            "workit-sample",
+			SigningKey:               []byte("secret"),
+			ValidIssuer:              "sample",
+			ValidAudience:            "sample",
 			RequireExpiration:        true,
 		}
 	})
+
+	builder.AddAuthorization(workit.AuthorizeOptions{
+		Routes: []workit.Route{
+			{
+				Path: "/test/{action}",
+				Methods: []workit.RequestMethod{
+					workit.GET,
+				},
+			},
+		},
+
+		Policies: []string{"admin_role_policy"},
+	}).
+		RequireRole("admin_role_policy", "Admin")
 
 	//构建应用
 	app, err := builder.Build()
@@ -66,10 +80,10 @@ func main() {
 	})
 
 	// 配置鉴权
-	//	app.UseAuthentication()
+	app.UseAuthentication()
 
 	// 配置授权
-	//	app.UseAuthorization()
+	app.UseAuthorization()
 
 	// 配置路由
 	app.MapRoutes(webapi.RegisterTodoRoutes)

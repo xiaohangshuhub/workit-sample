@@ -167,6 +167,10 @@ github.com/xiaohangshuhub/go-workit v0.0.0-20250808075946-b8dbdecbae63 h1:F7L32M
 github.com/xiaohangshuhub/go-workit v0.0.0-20250808075946-b8dbdecbae63/go.mod h1:iC5KUaJaKcDY6mu3dnwd2X7Rv/QqKw3OcmXJbxn7O/w=
 github.com/xiaohangshuhub/go-workit v0.0.0-20250808091150-8fe3e8e955cf h1:++clwmUzd6oCqrWm6TAipOQtIatW1g40pRfjzbV1gog=
 github.com/xiaohangshuhub/go-workit v0.0.0-20250808091150-8fe3e8e955cf/go.mod h1:iC5KUaJaKcDY6mu3dnwd2X7Rv/QqKw3OcmXJbxn7O/w=
+github.com/xiaohangshuhub/go-workit v0.0.0-20250811002421-e3ce32834036 h1:84Ks1aGmgnR1dEQVBmzXymBgwvaTEah4peTkPWrxuuE=
+github.com/xiaohangshuhub/go-workit v0.0.0-20250811002421-e3ce32834036/go.mod h1:iC5KUaJaKcDY6mu3dnwd2X7Rv/QqKw3OcmXJbxn7O/w=
+github.com/xiaohangshuhub/go-workit v0.0.0-20250811013359-d2681535b137 h1:3axVVnPEtHbbIbrc7556ydGg5Kxbf7iIt3B2/M4jzMw=
+github.com/xiaohangshuhub/go-workit v0.0.0-20250811013359-d2681535b137/go.mod h1:iC5KUaJaKcDY6mu3dnwd2X7Rv/QqKw3OcmXJbxn7O/w=
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
 go.opentelemetry.io/auto/sdk v1.1.0 h1:cH53jehLUN6UFLY71z+NDOiNJqDdPRaXzTel0sJySYA=
 go.opentelemetry.io/auto/sdk v1.1.0/go.mod h1:3wSPjt5PWp2RhlCcmmOial7AvC4DQqZb7a7wCow3W8A=
