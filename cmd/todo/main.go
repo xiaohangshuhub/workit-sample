@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"workit-sample/internal/todo/application"
 	"workit-sample/internal/todo/domain"
 	"workit-sample/internal/todo/webapi"
@@ -12,7 +10,6 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/xiaohangshuhub/go-workit/pkg/database"
 	"github.com/xiaohangshuhub/go-workit/pkg/workit"
-	"go.uber.org/zap"
 )
 
 func main() {
@@ -22,7 +19,7 @@ func main() {
 
 	// 配置应用配置,内置环境变量读取和命令行参数读取
 	builder.AddConfig(func(build workit.ConfigBuilder) {
-		build.AddYamlFile("./config.yaml")
+		build.AddYamlFile("./application.yaml")
 	})
 
 	// 配置依赖注入
@@ -33,7 +30,11 @@ func main() {
 
 	builder.AddServices(application.DependencyInjection()...)
 
-	builder.AddAuthentication().AddJwtBearer(func(options *workit.JwtBearerOptions) {
+	builder.AddAuthentication(func(options *workit.AuthenticationOptions) {
+
+		options.DefaultScheme = "jwt"
+
+	}).AddJwtBearer("jwt", func(options *workit.JwtBearerOptions) {
 
 		options.TokenValidationParameters = workit.TokenValidationParameters{
 			ValidateIssuer:           true,
@@ -47,27 +48,13 @@ func main() {
 		}
 	})
 
-	builder.AddAuthorization(workit.AuthorizeOptions{
-		Routes: []workit.Route{
-			{
-				Path: "/test/{action}",
-				Methods: []workit.RequestMethod{
-					workit.GET,
-				},
-			},
-		},
-
-		Policies: []string{"admin_role_policy"},
+	builder.AddAuthorization(func(options *workit.AuthorizationOptions) {
+		options.DefaultPolicy = ""
 	}).
 		RequireRole("admin_role_policy", "Admin")
 
 	//构建应用
-	app, err := builder.Build()
-
-	if err != nil {
-		fmt.Printf("Failed to build application: %v\n", err)
-		return
-	}
+	app := builder.Build()
 
 	if app.Env().IsDevelopment {
 		app.UseSwagger()
@@ -86,10 +73,8 @@ func main() {
 	app.UseAuthorization()
 
 	// 配置路由
-	app.MapRoutes(webapi.RegisterTodoRoutes)
+	app.MapRouter(webapi.RegisterTodoRoutes)
 
 	// 运行应用
-	if err := app.Run(); err != nil {
-		app.Logger().Error("Error running application", zap.Error(err))
-	}
+	app.Run()
 }
